@@ -115,11 +115,11 @@
             <div class="p-6 rounded-2xl bg-gradient-to-r from-indigo-950/50 via-slate-900 to-slate-900 border border-indigo-900/40 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
                     <h2 id="welcome-banner-title" class="text-xl font-bold text-white">Welcome back! 👋</h2>
-                    <p class="text-xs text-slate-400 mt-1">Manage live talent pipeline, evaluate AI matches, and track requisitions.</p>
+                    <p class="text-xs text-slate-400 mt-1">Manage live talent pipeline, evaluate AI matches, and attach candidate CVs.</p>
                 </div>
                 <div class="flex gap-3">
-                    <button onclick="openAddModal()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold shadow-lg shadow-indigo-600/20 transition-all flex items-center gap-2">
-                        <i data-lucide="plus" class="w-3.5 h-3.5"></i> Add New Record
+                    <button onclick="openAddModal('applicant')" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold shadow-lg shadow-indigo-600/20 transition-all flex items-center gap-2">
+                        <i data-lucide="plus" class="w-3.5 h-3.5"></i> Add Candidate & Upload CV
                     </button>
                 </div>
             </div>
@@ -133,7 +133,7 @@
                     </div>
                     <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800">
                         <p class="text-xs font-medium text-slate-400">Average AI Match</p>
-                        <h3 class="text-2xl font-bold text-white mt-2">92.4%</h3>
+                        <h3 class="text-2xl font-bold text-white mt-2">93.2%</h3>
                     </div>
                     <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800">
                         <p class="text-xs font-medium text-slate-400">Active Open Requisitions</p>
@@ -158,10 +158,10 @@
                 <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-4">
                     <div class="flex justify-between items-center">
                         <div>
-                            <h3 class="font-bold text-sm text-white">Candidate AI Evaluation Queue</h3>
-                            <p class="text-xs text-slate-400">Add, edit, or delete candidates and review AI fit scores.</p>
+                            <h3 class="font-bold text-sm text-white">Candidate AI Evaluation & CV Attachments</h3>
+                            <p class="text-xs text-slate-400">Upload resumes, review AI match scores, manage applicants.</p>
                         </div>
-                        <button onclick="openAddModal('applicant')" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-medium">Add Candidate</button>
+                        <button onclick="openAddModal('applicant')" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-medium">Add Candidate & CV</button>
                     </div>
                     <div class="overflow-x-auto">
                         <table class="w-full text-left text-xs">
@@ -170,6 +170,7 @@
                                     <th class="pb-3 font-semibold">Candidate Name</th>
                                     <th class="pb-3 font-semibold">Position</th>
                                     <th class="pb-3 font-semibold">AI Match Score</th>
+                                    <th class="pb-3 font-semibold">Attached CV</th>
                                     <th class="pb-3 font-semibold">Status</th>
                                     <th class="pb-3 font-semibold text-right">Manage</th>
                                 </tr>
@@ -279,7 +280,7 @@
             </div>
             <div id="chat-messages" class="flex-1 p-4 space-y-3 overflow-y-auto text-xs text-slate-300">
                 <div id="chat-initial-greeting" class="p-3 bg-slate-900 border border-slate-800 rounded-xl">
-                    Hello! I'm Mini. How can I assist your hiring pipeline today?
+                    Hello! I'm Mini. Upload candidate resumes and I'll parse them instantly. How can I assist your hiring pipeline today?
                 </div>
             </div>
             <div class="p-3 border-t border-slate-800 bg-slate-950 flex gap-2">
@@ -289,27 +290,23 @@
         </div>
     </div>
 
-    <!-- INTERACTIVE APP LOGIC -->
+    <!-- INTERACTIVE APP LOGIC WITH FILE ATTACHMENTS -->
     <script>
-        // Default Local App State
         let appData = {
             user: { name: "Venkata Padmini", role: "Technical Project Manager & Lead" },
             applicants: [
-                { id: 1, name: "Khushboo N", position: "Technical Project Manager — AI", match: "94%", status: "L1 Interview Completed" },
-                { id: 2, name: "Rahul Sharma", position: "Senior Scrum Master (SAFe)", match: "89%", status: "Screening Pending" },
-                { id: 3, name: "Ananya Iyer", position: "Conversational AI Developer", match: "96%", status: "L2 Scheduled" }
+                { id: 1, name: "Khushboo N", position: "Technical Project Manager — AI", match: "94%", cvName: "Khushboo_N_Resume.pdf", status: "L1 Interview Completed" },
+                { id: 2, name: "Rahul Sharma", position: "Senior Scrum Master (SAFe)", match: "89%", cvName: "Rahul_Sharma_CV.docx", status: "Screening Pending" }
             ],
             jobs: [
                 { id: 1, title: "Technical Project Manager — AI", dept: "AI Engineering", openings: 2, type: "Full-Time" },
-                { id: 2, title: "Senior Scrum Master (SAFe)", dept: "Delivery Management", openings: 1, type: "Full-Time" }
+                { id: 2, title: "Conversational AI Developer", dept: "AI Engineering", openings: 1, type: "Full-Time" }
             ],
             interviews: [
-                { id: 1, candidate: "Khushboo N", interviewer: "Venkata Padmini", datetime: "Aug 27, 2026 — 10:00 AM", stage: "L1 Technical" },
-                { id: 2, candidate: "Ananya Iyer", interviewer: "Uma G S", datetime: "Nov 15, 2026 — 02:30 PM", stage: "L2 Architecture" }
+                { id: 1, candidate: "Khushboo N", interviewer: "Venkata Padmini", datetime: "Aug 27, 2026 — 10:00 AM", stage: "L1 Technical" }
             ],
             approvals: [
-                { id: 1, title: "Offer Budget Approval: Khushboo N", requestedBy: "Uma G S (HR)", status: "Pending Lead Signoff" },
-                { id: 2, title: "New Requisition: Senior AI Architect", requestedBy: "Venkata Padmini", status: "Pending Executive Signoff" }
+                { id: 1, title: "Offer Budget Approval: Khushboo N", requestedBy: "Uma G S (HR)", status: "Pending Lead Signoff" }
             ]
         };
 
@@ -365,12 +362,11 @@
             document.getElementById('welcome-banner-title').innerText = `Welcome back, ${appData.user.name}! 👋`;
             document.getElementById('user-avatar-initials').innerText = appData.user.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'AX';
 
-            // Stats
             document.getElementById('stat-total').innerText = appData.applicants.length;
             document.getElementById('stat-jobs').innerText = appData.jobs.length;
             document.getElementById('stat-approvals').innerText = appData.approvals.length;
 
-            // Render Applicants
+            // Render Applicants with CV attachment badge
             let appHtml = '';
             appData.applicants.forEach(a => {
                 appHtml += `
@@ -378,6 +374,7 @@
                         <td class="py-3 font-medium text-white">${a.name}</td>
                         <td class="py-3 text-slate-300">${a.position}</td>
                         <td class="py-3"><span class="px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-400 font-semibold border border-emerald-500/20">${a.match}</span></td>
+                        <td class="py-3 text-indigo-400 flex items-center gap-1.5"><i data-lucide="file-text" class="w-3.5 h-3.5"></i> ${a.cvName || 'Resume.pdf'}</td>
                         <td class="py-3 text-slate-300">${a.status}</td>
                         <td class="py-3 text-right space-x-2">
                             <button onclick="editItem('applicant', ${a.id})" class="px-2.5 py-1 bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-300 rounded-lg">Edit</button>
@@ -386,7 +383,7 @@
                     </tr>
                 `;
             });
-            document.getElementById('applicants-table-body').innerHTML = appHtml || `<tr><td colspan="5" class="py-4 text-center text-slate-500">No applicants found. Click 'Add Candidate' to add one.</td></tr>`;
+            document.getElementById('applicants-table-body').innerHTML = appHtml || `<tr><td colspan="6" class="py-4 text-center text-slate-500">No applicants found. Click 'Add Candidate' to add one.</td></tr>`;
 
             // Render Jobs
             let jobHtml = '';
@@ -444,12 +441,13 @@
 
             // Dashboard feed
             document.getElementById('dashboard-feed').innerHTML = `
-                <div class="p-3 bg-slate-950 border border-slate-800 rounded-xl">✨ AI matching engine successfully scanned ${appData.applicants.length * 52} resumes this week. Top candidate match is <strong>${appData.applicants[0]?.name || 'None'}</strong>.</div>
+                <div class="p-3 bg-slate-950 border border-slate-800 rounded-xl">✨ AI matching engine successfully parsed resumes for all active candidates. Top match: <strong>${appData.applicants[0]?.name || 'None'}</strong> (${appData.applicants[0]?.match || '0%'}).</div>
                 <div class="p-3 bg-slate-950 border border-slate-800 rounded-xl">📌 There are currently <strong>${appData.jobs.length}</strong> active job requisitions and <strong>${appData.approvals.length}</strong> pending leadership signoffs.</div>
             `;
+            lucide.createIcons();
         }
 
-        // Modal Management
+        // Modal Management with File Upload
         function openAddModal(type = 'applicant', id = null) {
             currentModalType = type;
             editTargetId = id;
@@ -470,8 +468,9 @@
                 content.innerHTML = `
                     <div><label class="block text-slate-400 mb-1">Candidate Name</label><input type="text" id="f-name" value="${item?.name || ''}" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200"></div>
                     <div><label class="block text-slate-400 mb-1">Position Applied</label><input type="text" id="f-position" value="${item?.position || ''}" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200"></div>
-                    <div><label class="block text-slate-400 mb-1">AI Match Score (%)</label><input type="text" id="f-match" value="${item?.match || '92%'}" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200"></div>
-                    <div><label class="block text-slate-400 mb-1">Status</label><input type="text" id="f-status" value="${item?.status || 'Screening'}" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200"></div>
+                    <div><label class="block text-slate-400 mb-1">Upload Resume / CV (PDF, DOCX)</label><input type="file" id="f-cv" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-300 text-xs file:mr-4 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-indigo-600 file:text-white hover:file:bg-indigo-500"></div>
+                    <div><label class="block text-slate-400 mb-1">AI Match Score (%)</label><input type="text" id="f-match" value="${item?.match || '94%'}" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200"></div>
+                    <div><label class="block text-slate-400 mb-1">Status</label><input type="text" id="f-status" value="${item?.status || 'Screening Pending'}" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200"></div>
                 `;
             } else if (type === 'job') {
                 content.innerHTML = `
@@ -503,15 +502,22 @@
 
         function saveModalData() {
             if (currentModalType === 'applicant') {
+                const cvInput = document.getElementById('f-cv');
+                let cvFileName = editTargetId ? (appData.applicants.find(x => x.id === editTargetId)?.cvName || 'Resume.pdf') : 'Resume.pdf';
+                if (cvInput && cvInput.files.length > 0) {
+                    cvFileName = cvInput.files[0].name;
+                }
+
                 const newItem = {
                     id: editTargetId || Date.now(),
                     name: document.getElementById('f-name').value,
                     position: document.getElementById('f-position').value,
                     match: document.getElementById('f-match').value,
+                    cvName: cvFileName,
                     status: document.getElementById('f-status').value
                 };
                 if (editTargetId) {
-                    appData.applicants = appData.applicants.map(x => x.id === editTargetId ? newItem : x);
+                    appData.applicants = appData.applicants.map(x => String(x.id) === String(editTargetId) ? newItem : x);
                 } else {
                     appData.applicants.push(newItem);
                 }
@@ -524,7 +530,7 @@
                     type: document.getElementById('f-type').value
                 };
                 if (editTargetId) {
-                    appData.jobs = appData.jobs.map(x => x.id === editTargetId ? newItem : x);
+                    appData.jobs = appData.jobs.map(x => String(x.id) === String(editTargetId) ? newItem : x);
                 } else {
                     appData.jobs.push(newItem);
                 }
@@ -537,7 +543,7 @@
                     stage: document.getElementById('f-stage').value
                 };
                 if (editTargetId) {
-                    appData.interviews = appData.interviews.map(x => x.id === editTargetId ? newItem : x);
+                    appData.interviews = appData.interviews.map(x => String(x.id) === String(editTargetId) ? newItem : x);
                 } else {
                     appData.interviews.push(newItem);
                 }
@@ -549,7 +555,7 @@
                     status: document.getElementById('f-apstatus').value
                 };
                 if (editTargetId) {
-                    appData.approvals = appData.approvals.map(x => x.id === editTargetId ? newItem : x);
+                    appData.approvals = appData.approvals.map(x => String(x.id) === String(editTargetId) ? newItem : x);
                 } else {
                     appData.approvals.push(newItem);
                 }
@@ -564,10 +570,10 @@
 
         function deleteItem(type, id) {
             if (confirm("Are you sure you want to delete this record?")) {
-                if (type === 'applicant') appData.applicants = appData.applicants.filter(x => x.id !== id);
-                if (type === 'job') appData.jobs = appData.jobs.filter(x => x.id !== id);
-                if (type === 'interview') appData.interviews = appData.interviews.filter(x => x.id !== id);
-                if (type === 'approval') appData.approvals = appData.approvals.filter(x => x.id !== id);
+                if (type === 'applicant') appData.applicants = appData.applicants.filter(x => String(x.id) !== String(id));
+                if (type === 'job') appData.jobs = appData.jobs.filter(x => String(x.id) !== String(id));
+                if (type === 'interview') appData.interviews = appData.interviews.filter(x => String(x.id) !== String(id));
+                if (type === 'approval') appData.approvals = appData.approvals.filter(x => String(x.id) !== String(id));
                 persistData();
             }
         }
@@ -591,9 +597,9 @@
                 let reply = `I'm tracking your pipeline updates, ${appData.user.name.split(' ')[0]}!`;
                 const t = text.toLowerCase();
                 if (t.includes('hello') || t.includes('hi')) {
-                    reply = `Hello ${appData.user.name}! How can I help you manage applicants or jobs today?`;
-                } else if (t.includes('add') || t.includes('new')) {
-                    reply = `You can easily add new records using the 'Add New Record' button at the top!`;
+                    reply = `Hello ${appData.user.name}! How can I help you manage resume uploads or candidates today?`;
+                } else if (t.includes('upload') || t.includes('cv')) {
+                    reply = `You can upload candidate CV files directly using the 'Add Candidate & Upload CV' button!`;
                 } else {
                     reply = `I've noted your input regarding "${text}" and synchronized your recruitment board.`;
                 }

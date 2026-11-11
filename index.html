@@ -23,6 +23,32 @@
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col">
 
+    <!-- LOGIN MODAL -->
+    <div id="login-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 w-full max-w-md space-y-4 shadow-2xl">
+            <div class="text-center space-y-1">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-600 to-violet-500 mx-auto flex items-center justify-center font-black text-white text-lg shadow-lg shadow-indigo-500/30 mb-3">
+                    AX
+                </div>
+                <h3 class="text-lg font-bold text-white">Welcome to APPEXCELERATE</h3>
+                <p class="text-xs text-slate-400">Enter your credentials to access your live recruitment workspace</p>
+            </div>
+            <div class="space-y-3 pt-2">
+                <div>
+                    <label class="block text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-1">Full Name</label>
+                    <input type="text" id="user-name-input" placeholder="e.g. Uma G S" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-1">Role / Designation</label>
+                    <input type="text" id="user-role-input" placeholder="e.g. HR Manager / Scrum Lead" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500">
+                </div>
+                <button onclick="handleUserLogin()" class="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold shadow-lg shadow-indigo-600/20 transition-all mt-2">
+                    Enter Workspace
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- TOP HEADER BAR -->
     <header class="h-16 border-b border-slate-800 bg-slate-900/60 backdrop-blur-md px-6 flex items-center justify-between sticky top-0 z-20">
         <div class="flex items-center gap-3">
@@ -42,12 +68,15 @@
             </span>
             <div class="flex items-center gap-3 pl-3 border-l border-slate-800">
                 <div class="text-right hidden sm:block">
-                    <p class="text-xs font-semibold text-slate-200">Venkata Padmini</p>
-                    <p class="text-[10px] text-slate-400">Technical Project Manager & Lead</p>
+                    <p id="header-user-name" class="text-xs font-semibold text-slate-200">Venkata Padmini</p>
+                    <p id="header-user-role" class="text-[10px] text-slate-400">Technical Project Manager & Lead</p>
                 </div>
-                <div class="w-9 h-9 rounded-full bg-indigo-600/30 border border-indigo-500/40 flex items-center justify-center font-bold text-indigo-300 text-xs">
+                <div id="user-avatar-initials" class="w-9 h-9 rounded-full bg-indigo-600/30 border border-indigo-500/40 flex items-center justify-center font-bold text-indigo-300 text-xs">
                     VP
                 </div>
+                <button onclick="openLoginModal()" title="Switch User" class="text-slate-400 hover:text-white text-xs ml-1 p-1 bg-slate-800 rounded-lg">
+                    <i data-lucide="user-cog" class="w-3.5 h-3.5"></i>
+                </button>
             </div>
         </div>
     </header>
@@ -57,142 +86,181 @@
         <aside class="w-64 border-r border-slate-800 bg-slate-900/40 p-4 hidden md:flex flex-col gap-6">
             <div class="space-y-1">
                 <p class="px-3 text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-2">Recruitment Hub</p>
-                <a href="#dashboard" class="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-indigo-600/10 text-indigo-400 font-medium text-xs border border-indigo-500/20">
+                <button onclick="switchTab('dashboard')" id="nav-dashboard" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl bg-indigo-600/10 text-indigo-400 font-medium text-xs border border-indigo-500/20 transition-all">
                     <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Overview Dashboard
-                </a>
-                <a href="#applicants" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900 transition-colors text-xs">
+                </button>
+                <button onclick="switchTab('applicants')" id="nav-applicants" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900 transition-all text-xs">
                     <i data-lucide="users" class="w-4 h-4"></i> Applicants & AI Match
-                </a>
-                <a href="#jobs" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900 transition-colors text-xs">
+                </button>
+                <button onclick="switchTab('jobs')" id="nav-jobs" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900 transition-all text-xs">
                     <i data-lucide="briefcase" class="w-4 h-4"></i> Jobs & Requisitions
-                </a>
-                <a href="#interviews" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900 transition-colors text-xs">
+                </button>
+                <button onclick="switchTab('interviews')" id="nav-interviews" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900 transition-all text-xs">
                     <i data-lucide="calendar" class="w-4 h-4"></i> Interviews & Rubrics
-                </a>
+                </button>
             </div>
 
             <div class="space-y-1 pt-4 border-t border-slate-800/80">
                 <p class="px-3 text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-2">Operations</p>
-                <a href="#approvals" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900 transition-colors text-xs">
+                <button onclick="switchTab('approvals')" id="nav-approvals" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900 transition-all text-xs">
                     <i data-lucide="check-circle" class="w-4 h-4"></i> Pending Approvals
-                </a>
-                <a href="#analytics" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900 transition-colors text-xs">
-                    <i data-lucide="bar-chart-3" class="w-4 h-4"></i> Pipeline Analytics
-                </a>
+                </button>
             </div>
         </aside>
 
-        <!-- MAIN CONTENT -->
+        <!-- MAIN CONTENT AREA -->
         <main class="flex-1 p-6 md:p-8 space-y-6 overflow-y-auto">
             
             <!-- WELCOME BANNER -->
             <div class="p-6 rounded-2xl bg-gradient-to-r from-indigo-950/50 via-slate-900 to-slate-900 border border-indigo-900/40 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
-                    <h2 class="text-xl font-bold text-white">Welcome back, Venkata! 👋</h2>
-                    <p class="text-xs text-slate-400 mt-1">Here is your live talent pipeline status for APPEXCELERATE AI recruitment workflows.</p>
+                    <h2 id="welcome-banner-title" class="text-xl font-bold text-white">Welcome back! 👋</h2>
+                    <p class="text-xs text-slate-400 mt-1">Manage live talent pipeline, evaluate AI matches, and track requisitions.</p>
                 </div>
                 <div class="flex gap-3">
-                    <button onclick="alert('Opening AI Requisition Creator...')" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold shadow-lg shadow-indigo-600/20 transition-all flex items-center gap-2">
-                        <i data-lucide="plus" class="w-3.5 h-3.5"></i> Post New Requisition
+                    <button onclick="openAddModal()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold shadow-lg shadow-indigo-600/20 transition-all flex items-center gap-2">
+                        <i data-lucide="plus" class="w-3.5 h-3.5"></i> Add New Record
                     </button>
                 </div>
             </div>
 
-            <!-- METRICS GRID -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800">
-                    <div class="flex justify-between items-start">
+            <!-- TAB 1: OVERVIEW DASHBOARD -->
+            <div id="tab-dashboard" class="space-y-6 tab-content">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800">
                         <p class="text-xs font-medium text-slate-400">Total Applicants</p>
-                        <i data-lucide="users" class="w-4 h-4 text-indigo-400"></i>
+                        <h3 id="stat-total" class="text-2xl font-bold text-white mt-2">0</h3>
                     </div>
-                    <h3 class="text-2xl font-bold text-white mt-2">156</h3>
-                    <p class="text-[10px] text-emerald-400 mt-1 flex items-center gap-1">
-                        <i data-lucide="trending-up" class="w-3 h-3"></i> +12% this week
-                    </p>
-                </div>
-                <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800">
-                    <div class="flex justify-between items-start">
-                        <p class="text-xs font-medium text-slate-400">AI Match Accuracy</p>
-                        <i data-lucide="sparkles" class="w-4 h-4 text-violet-400"></i>
+                    <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800">
+                        <p class="text-xs font-medium text-slate-400">Average AI Match</p>
+                        <h3 class="text-2xl font-bold text-white mt-2">92.4%</h3>
                     </div>
-                    <h3 class="text-2xl font-bold text-white mt-2">94.8%</h3>
-                    <p class="text-[10px] text-emerald-400 mt-1 flex items-center gap-1">
-                        <i data-lucide="trending-up" class="w-3 h-3"></i> +3.4% precision
-                    </p>
-                </div>
-                <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800">
-                    <div class="flex justify-between items-start">
-                        <p class="text-xs font-medium text-slate-400">Interviews Scheduled</p>
-                        <i data-lucide="calendar" class="w-4 h-4 text-sky-400"></i>
+                    <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800">
+                        <p class="text-xs font-medium text-slate-400">Active Open Requisitions</p>
+                        <h3 id="stat-jobs" class="text-2xl font-bold text-white mt-2">0</h3>
                     </div>
-                    <h3 class="text-2xl font-bold text-white mt-2">24</h3>
-                    <p class="text-[10px] text-slate-400 mt-1">L1 & L2 evaluations</p>
-                </div>
-                <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800">
-                    <div class="flex justify-between items-start">
+                    <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800">
                         <p class="text-xs font-medium text-slate-400">Pending Approvals</p>
-                        <i data-lucide="clock" class="w-4 h-4 text-amber-400"></i>
+                        <h3 id="stat-approvals" class="text-2xl font-bold text-white mt-2">0</h3>
                     </div>
-                    <h3 class="text-2xl font-bold text-white mt-2">5</h3>
-                    <p class="text-[10px] text-amber-400 mt-1">Requires HR & Lead signoff</p>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-4">
+                    <h3 class="font-bold text-sm text-white">Recent Pipeline Activity & AI Highlights</h3>
+                    <div id="dashboard-feed" class="space-y-3 text-xs text-slate-300">
+                        <!-- Dynamic feed items injected here -->
+                    </div>
                 </div>
             </div>
 
-            <!-- APPLICANT TABLE SECTION -->
-            <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-4">
-                <div class="flex justify-between items-center">
-                    <div>
-                        <h3 class="font-bold text-sm text-white">Top Candidate AI Evaluation Queue</h3>
-                        <p class="text-xs text-slate-400">Recent AI technical fit evaluations and recommendations.</p>
+            <!-- TAB 2: APPLICANTS & AI MATCH -->
+            <div id="tab-applicants" class="space-y-6 tab-content hidden">
+                <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-4">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h3 class="font-bold text-sm text-white">Candidate AI Evaluation Queue</h3>
+                            <p class="text-xs text-slate-400">Add, edit, or delete candidates and review AI fit scores.</p>
+                        </div>
+                        <button onclick="openAddModal('applicant')" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-medium">Add Candidate</button>
                     </div>
-                    <button class="text-xs text-indigo-400 hover:text-indigo-300 font-medium">View All →</button>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs">
+                            <thead>
+                                <tr class="border-b border-slate-800 text-slate-400">
+                                    <th class="pb-3 font-semibold">Candidate Name</th>
+                                    <th class="pb-3 font-semibold">Position</th>
+                                    <th class="pb-3 font-semibold">AI Match Score</th>
+                                    <th class="pb-3 font-semibold">Status</th>
+                                    <th class="pb-3 font-semibold text-right">Manage</th>
+                                </tr>
+                            </thead>
+                            <tbody id="applicants-table-body" class="divide-y divide-slate-800/60">
+                                <!-- Dynamic rows -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
+            </div>
 
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left text-xs">
-                        <thead>
-                            <tr class="border-b border-slate-800 text-slate-400">
-                                <th class="pb-3 font-semibold">Candidate Name</th>
-                                <th class="pb-3 font-semibold">Position</th>
-                                <th class="pb-3 font-semibold">AI Match Score</th>
-                                <th class="pb-3 font-semibold">Status</th>
-                                <th class="pb-3 font-semibold text-right">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-slate-800/60">
-                            <tr>
-                                <td class="py-3 font-medium text-white">Khushboo N</td>
-                                <td class="py-3 text-slate-300">Technical Project Manager — AI</td>
-                                <td class="py-3"><span class="px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-400 font-semibold border border-emerald-500/20">94%</span></td>
-                                <td class="py-3 text-slate-300">L1 Interview Completed</td>
-                                <td class="py-3 text-right">
-                                    <button onclick="alert('Viewing candidate evaluation rubric for Khushboo N')" class="px-3 py-1 bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-300 rounded-lg transition-colors">Review</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="py-3 font-medium text-white">Rahul Sharma</td>
-                                <td class="py-3 text-slate-300">Senior Scrum Master (SAFe)</td>
-                                <td class="py-3"><span class="px-2 py-0.5 rounded-md bg-indigo-500/10 text-indigo-400 font-semibold border border-indigo-500/20">89%</span></td>
-                                <td class="py-3 text-slate-300">Screening Pending</td>
-                                <td class="py-3 text-right">
-                                    <button onclick="alert('Viewing candidate evaluation rubric for Rahul Sharma')" class="px-3 py-1 bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-300 rounded-lg transition-colors">Review</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="py-3 font-medium text-white">Ananya Iyer</td>
-                                <td class="py-3 text-slate-300">Conversational AI Developer</td>
-                                <td class="py-3"><span class="px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-400 font-semibold border border-emerald-500/20">96%</span></td>
-                                <td class="py-3 text-slate-300">L2 Scheduled</td>
-                                <td class="py-3 text-right">
-                                    <button onclick="alert('Viewing candidate evaluation rubric for Ananya Iyer')" class="px-3 py-1 bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-300 rounded-lg transition-colors">Review</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <!-- TAB 3: JOBS & REQUISITIONS -->
+            <div id="tab-jobs" class="space-y-6 tab-content hidden">
+                <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-4">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h3 class="font-bold text-sm text-white">Active Requisitions</h3>
+                            <p class="text-xs text-slate-400">Open enterprise positions currently sourcing applicants.</p>
+                        </div>
+                        <button onclick="openAddModal('job')" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-medium">New Requisition</button>
+                    </div>
+                    <div id="jobs-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Dynamic job cards -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: INTERVIEWS -->
+            <div id="tab-interviews" class="space-y-6 tab-content hidden">
+                <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-4">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h3 class="font-bold text-sm text-white">Scheduled Interviews & Rubrics</h3>
+                            <p class="text-xs text-slate-400">L1 and L2 evaluation schedule.</p>
+                        </div>
+                        <button onclick="openAddModal('interview')" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-medium">Schedule Interview</button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs">
+                            <thead>
+                                <tr class="border-b border-slate-800 text-slate-400">
+                                    <th class="pb-3 font-semibold">Candidate</th>
+                                    <th class="pb-3 font-semibold">Interviewer</th>
+                                    <th class="pb-3 font-semibold">Date & Time</th>
+                                    <th class="pb-3 font-semibold">Stage</th>
+                                    <th class="pb-3 font-semibold text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="interviews-table-body" class="divide-y divide-slate-800/60">
+                                <!-- Dynamic rows -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 5: PENDING APPROVALS -->
+            <div id="tab-approvals" class="space-y-6 tab-content hidden">
+                <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-4">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h3 class="font-bold text-sm text-white">Pending Leadership Signoffs</h3>
+                            <p class="text-xs text-slate-400">Approvals required from HR and Technical Leads.</p>
+                        </div>
+                        <button onclick="openAddModal('approval')" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-medium">Request Approval</button>
+                    </div>
+                    <div id="approvals-list" class="space-y-3">
+                        <!-- Dynamic approvals -->
+                    </div>
                 </div>
             </div>
 
         </main>
+    </div>
+
+    <!-- ADD / EDIT MODAL -->
+    <div id="generic-modal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 w-full max-w-lg space-y-4 shadow-2xl">
+            <div class="flex justify-between items-center">
+                <h3 id="modal-title" class="text-lg font-bold text-white">Add New Record</h3>
+                <button onclick="closeAddModal()" class="text-slate-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+            <div id="modal-form-content" class="space-y-3 text-xs">
+                <!-- Form fields injected dynamically -->
+            </div>
+            <div class="flex justify-end gap-2 pt-2">
+                <button onclick="closeAddModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl font-medium">Cancel</button>
+                <button onclick="saveModalData()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-semibold">Save Record</button>
+            </div>
+        </div>
     </div>
 
     <!-- FLOATING AI ASSISTANT WIDGET (MINI) -->
@@ -201,7 +269,6 @@
             <i data-lucide="sparkles" class="w-6 h-6 animate-pulse"></i>
         </button>
 
-        <!-- AI Chat Popup -->
         <div id="ai-chat-box" class="hidden absolute bottom-16 right-0 w-80 sm:w-96 bg-slate-950 border border-slate-800 rounded-2xl shadow-2xl overflow-hidden flex flex-col h-[420px]">
             <div class="h-14 bg-indigo-600 px-4 flex items-center justify-between text-white">
                 <div class="flex items-center gap-2">
@@ -211,8 +278,8 @@
                 <button onclick="toggleAiChat()" class="text-white/80 hover:text-white"><i data-lucide="x" class="w-4 h-4"></i></button>
             </div>
             <div id="chat-messages" class="flex-1 p-4 space-y-3 overflow-y-auto text-xs text-slate-300">
-                <div class="p-3 bg-slate-900 border border-slate-800 rounded-xl">
-                    Hello Venkata! I'm Mini. I have parsed 156 resumes today. Candidate <strong>Khushboo N</strong> scored 94% match for the AI Technical Project Manager position. How can I assist your pipeline today?
+                <div id="chat-initial-greeting" class="p-3 bg-slate-900 border border-slate-800 rounded-xl">
+                    Hello! I'm Mini. How can I assist your hiring pipeline today?
                 </div>
             </div>
             <div class="p-3 border-t border-slate-800 bg-slate-950 flex gap-2">
@@ -222,49 +289,321 @@
         </div>
     </div>
 
-    <!-- SCRIPT LOGIC -->
+    <!-- INTERACTIVE APP LOGIC -->
     <script>
-        // Initialize Lucide Icons
-        lucide.createIcons();
+        // Default Local App State
+        let appData = {
+            user: { name: "Venkata Padmini", role: "Technical Project Manager & Lead" },
+            applicants: [
+                { id: 1, name: "Khushboo N", position: "Technical Project Manager — AI", match: "94%", status: "L1 Interview Completed" },
+                { id: 2, name: "Rahul Sharma", position: "Senior Scrum Master (SAFe)", match: "89%", status: "Screening Pending" },
+                { id: 3, name: "Ananya Iyer", position: "Conversational AI Developer", match: "96%", status: "L2 Scheduled" }
+            ],
+            jobs: [
+                { id: 1, title: "Technical Project Manager — AI", dept: "AI Engineering", openings: 2, type: "Full-Time" },
+                { id: 2, title: "Senior Scrum Master (SAFe)", dept: "Delivery Management", openings: 1, type: "Full-Time" }
+            ],
+            interviews: [
+                { id: 1, candidate: "Khushboo N", interviewer: "Venkata Padmini", datetime: "Aug 27, 2026 — 10:00 AM", stage: "L1 Technical" },
+                { id: 2, candidate: "Ananya Iyer", interviewer: "Uma G S", datetime: "Nov 15, 2026 — 02:30 PM", stage: "L2 Architecture" }
+            ],
+            approvals: [
+                { id: 1, title: "Offer Budget Approval: Khushboo N", requestedBy: "Uma G S (HR)", status: "Pending Lead Signoff" },
+                { id: 2, title: "New Requisition: Senior AI Architect", requestedBy: "Venkata Padmini", status: "Pending Executive Signoff" }
+            ]
+        };
 
-        // Toggle AI Chat Modal
-        function toggleAiChat() {
-            const chatBox = document.getElementById('ai-chat-box');
-            chatBox.classList.toggle('hidden');
+        let currentModalType = 'applicant';
+        let editTargetId = null;
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedUser = localStorage.getItem('appex_user');
+            if (savedUser) {
+                appData.user = JSON.parse(savedUser);
+                document.getElementById('login-modal').classList.add('hidden');
+            }
+            const savedData = localStorage.getItem('appex_pipeline_data');
+            if (savedData) {
+                appData = JSON.parse(savedData);
+            }
+            refreshUI();
+        });
+
+        function persistData() {
+            localStorage.setItem('appex_pipeline_data', JSON.stringify(appData));
+            refreshUI();
         }
 
-        // Mini AI Chat Handler
+        function handleUserLogin() {
+            const name = document.getElementById('user-name-input').value.trim();
+            const role = document.getElementById('user-role-input').value.trim();
+            if (name) appData.user.name = name;
+            if (role) appData.user.role = role;
+            localStorage.setItem('appex_user', JSON.stringify(appData.user));
+            document.getElementById('login-modal').classList.add('hidden');
+            refreshUI();
+        }
+
+        function openLoginModal() {
+            document.getElementById('login-modal').classList.remove('hidden');
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById('tab-' + tabId).classList.remove('hidden');
+            
+            document.querySelectorAll('aside button[id^="nav-"]').forEach(btn => {
+                btn.className = "w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900 transition-all text-xs";
+            });
+            document.getElementById('nav-' + tabId).className = "w-full flex items-center gap-3 px-3 py-2.5 rounded-xl bg-indigo-600/10 text-indigo-400 font-medium text-xs border border-indigo-500/20 transition-all";
+        }
+
+        function refreshUI() {
+            lucide.createIcons();
+            document.getElementById('header-user-name').innerText = appData.user.name;
+            document.getElementById('header-user-role').innerText = appData.user.role;
+            document.getElementById('welcome-banner-title').innerText = `Welcome back, ${appData.user.name}! 👋`;
+            document.getElementById('user-avatar-initials').innerText = appData.user.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'AX';
+
+            // Stats
+            document.getElementById('stat-total').innerText = appData.applicants.length;
+            document.getElementById('stat-jobs').innerText = appData.jobs.length;
+            document.getElementById('stat-approvals').innerText = appData.approvals.length;
+
+            // Render Applicants
+            let appHtml = '';
+            appData.applicants.forEach(a => {
+                appHtml += `
+                    <tr>
+                        <td class="py-3 font-medium text-white">${a.name}</td>
+                        <td class="py-3 text-slate-300">${a.position}</td>
+                        <td class="py-3"><span class="px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-400 font-semibold border border-emerald-500/20">${a.match}</span></td>
+                        <td class="py-3 text-slate-300">${a.status}</td>
+                        <td class="py-3 text-right space-x-2">
+                            <button onclick="editItem('applicant', ${a.id})" class="px-2.5 py-1 bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-300 rounded-lg">Edit</button>
+                            <button onclick="deleteItem('applicant', ${a.id})" class="px-2.5 py-1 bg-rose-600/20 hover:bg-rose-600/40 text-rose-300 rounded-lg">Delete</button>
+                        </td>
+                    </tr>
+                `;
+            });
+            document.getElementById('applicants-table-body').innerHTML = appHtml || `<tr><td colspan="5" class="py-4 text-center text-slate-500">No applicants found. Click 'Add Candidate' to add one.</td></tr>`;
+
+            // Render Jobs
+            let jobHtml = '';
+            appData.jobs.forEach(j => {
+                jobHtml += `
+                    <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 flex justify-between items-start">
+                        <div>
+                            <h4 class="font-bold text-white text-sm">${j.title}</h4>
+                            <p class="text-xs text-slate-400 mt-1">Department: ${j.dept} • Openings: ${j.openings} • Type: ${j.type}</p>
+                        </div>
+                        <div class="space-x-1">
+                            <button onclick="editItem('job', ${j.id})" class="px-2 py-1 bg-indigo-600/20 text-indigo-300 rounded text-[10px]">Edit</button>
+                            <button onclick="deleteItem('job', ${j.id})" class="px-2 py-1 bg-rose-600/20 text-rose-300 rounded text-[10px]">Delete</button>
+                        </div>
+                    </div>
+                `;
+            });
+            document.getElementById('jobs-grid').innerHTML = jobHtml || `<p class="text-slate-500 text-xs">No active requisitions.</p>`;
+
+            // Render Interviews
+            let intHtml = '';
+            appData.interviews.forEach(i => {
+                intHtml += `
+                    <tr>
+                        <td class="py-3 font-medium text-white">${i.candidate}</td>
+                        <td class="py-3 text-slate-300">${i.interviewer}</td>
+                        <td class="py-3 text-slate-300">${i.datetime}</td>
+                        <td class="py-3"><span class="px-2 py-0.5 rounded-md bg-sky-500/10 text-sky-400 border border-sky-500/20">${i.stage}</span></td>
+                        <td class="py-3 text-right space-x-2">
+                            <button onclick="editItem('interview', ${i.id})" class="px-2.5 py-1 bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-300 rounded-lg">Edit</button>
+                            <button onclick="deleteItem('interview', ${i.id})" class="px-2.5 py-1 bg-rose-600/20 hover:bg-rose-600/40 text-rose-300 rounded-lg">Delete</button>
+                        </td>
+                    </tr>
+                `;
+            });
+            document.getElementById('interviews-table-body').innerHTML = intHtml || `<tr><td colspan="5" class="py-4 text-center text-slate-500">No interviews scheduled.</td></tr>`;
+
+            // Render Approvals
+            let apprvHtml = '';
+            appData.approvals.forEach(ap => {
+                apprvHtml += `
+                    <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 flex justify-between items-center">
+                        <div>
+                            <h4 class="font-bold text-white text-xs">${ap.title}</h4>
+                            <p class="text-[10px] text-slate-400 mt-0.5">Requested by: ${ap.requestedBy} • Status: <span class="text-amber-400">${ap.status}</span></p>
+                        </div>
+                        <div class="space-x-2">
+                            <button onclick="editItem('approval', ${ap.id})" class="px-2.5 py-1 bg-indigo-600/20 text-indigo-300 rounded text-xs">Edit</button>
+                            <button onclick="deleteItem('approval', ${ap.id})" class="px-2.5 py-1 bg-rose-600/20 text-rose-300 rounded text-xs">Delete</button>
+                        </div>
+                    </div>
+                `;
+            });
+            document.getElementById('approvals-list').innerHTML = apprvHtml || `<p class="text-slate-500 text-xs">No pending approvals.</p>`;
+
+            // Dashboard feed
+            document.getElementById('dashboard-feed').innerHTML = `
+                <div class="p-3 bg-slate-950 border border-slate-800 rounded-xl">✨ AI matching engine successfully scanned ${appData.applicants.length * 52} resumes this week. Top candidate match is <strong>${appData.applicants[0]?.name || 'None'}</strong>.</div>
+                <div class="p-3 bg-slate-950 border border-slate-800 rounded-xl">📌 There are currently <strong>${appData.jobs.length}</strong> active job requisitions and <strong>${appData.approvals.length}</strong> pending leadership signoffs.</div>
+            `;
+        }
+
+        // Modal Management
+        function openAddModal(type = 'applicant', id = null) {
+            currentModalType = type;
+            editTargetId = id;
+            const modal = document.getElementById('generic-modal');
+            const title = document.getElementById('modal-title');
+            const content = document.getElementById('modal-form-content');
+            modal.classList.remove('hidden');
+
+            let item = null;
+            if (id !== null) {
+                item = appData[type + 's']?.find(x => x.id === id) || appData.approvals.find(x => x.id === id);
+                title.innerText = `Edit ${type.charAt(0).toUpperCase() + type.slice(1)}`;
+            } else {
+                title.innerText = `Add New ${type.charAt(0).toUpperCase() + type.slice(1)}`;
+            }
+
+            if (type === 'applicant') {
+                content.innerHTML = `
+                    <div><label class="block text-slate-400 mb-1">Candidate Name</label><input type="text" id="f-name" value="${item?.name || ''}" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200"></div>
+                    <div><label class="block text-slate-400 mb-1">Position Applied</label><input type="text" id="f-position" value="${item?.position || ''}" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200"></div>
+                    <div><label class="block text-slate-400 mb-1">AI Match Score (%)</label><input type="text" id="f-match" value="${item?.match || '92%'}" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200"></div>
+                    <div><label class="block text-slate-400 mb-1">Status</label><input type="text" id="f-status" value="${item?.status || 'Screening'}" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200"></div>
+                `;
+            } else if (type === 'job') {
+                content.innerHTML = `
+                    <div><label class="block text-slate-400 mb-1">Job Title</label><input type="text" id="f-title" value="${item?.title || ''}" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200"></div>
+                    <div><label class="block text-slate-400 mb-1">Department</label><input type="text" id="f-dept" value="${item?.dept || ''}" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200"></div>
+                    <div><label class="block text-slate-400 mb-1">Openings</label><input type="number" id="f-openings" value="${item?.openings || 1}" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200"></div>
+                    <div><label class="block text-slate-400 mb-1">Employment Type</label><input type="text" id="f-type" value="${item?.type || 'Full-Time'}" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200"></div>
+                `;
+            } else if (type === 'interview') {
+                content.innerHTML = `
+                    <div><label class="block text-slate-400 mb-1">Candidate Name</label><input type="text" id="f-candidate" value="${item?.candidate || ''}" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200"></div>
+                    <div><label class="block text-slate-400 mb-1">Interviewer</label><input type="text" id="f-interviewer" value="${item?.interviewer || ''}" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200"></div>
+                    <div><label class="block text-slate-400 mb-1">Date & Time</label><input type="text" id="f-datetime" value="${item?.datetime || ''}" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200"></div>
+                    <div><label class="block text-slate-400 mb-1">Stage</label><input type="text" id="f-stage" value="${item?.stage || 'L1 Technical'}" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200"></div>
+                `;
+            } else if (type === 'approval') {
+                content.innerHTML = `
+                    <div><label class="block text-slate-400 mb-1">Approval Title</label><input type="text" id="f-aptitle" value="${item?.title || ''}" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200"></div>
+                    <div><label class="block text-slate-400 mb-1">Requested By</label><input type="text" id="f-reqby" value="${item?.requestedBy || ''}" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200"></div>
+                    <div><label class="block text-slate-400 mb-1">Status</label><input type="text" id="f-apstatus" value="${item?.status || 'Pending'}" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200"></div>
+                `;
+            }
+        }
+
+        function closeAddModal() {
+            document.getElementById('generic-modal').classList.add('hidden');
+            editTargetId = null;
+        }
+
+        function saveModalData() {
+            if (currentModalType === 'applicant') {
+                const newItem = {
+                    id: editTargetId || Date.now(),
+                    name: document.getElementById('f-name').value,
+                    position: document.getElementById('f-position').value,
+                    match: document.getElementById('f-match').value,
+                    status: document.getElementById('f-status').value
+                };
+                if (editTargetId) {
+                    appData.applicants = appData.applicants.map(x => x.id === editTargetId ? newItem : x);
+                } else {
+                    appData.applicants.push(newItem);
+                }
+            } else if (currentModalType === 'job') {
+                const newItem = {
+                    id: editTargetId || Date.now(),
+                    title: document.getElementById('f-title').value,
+                    dept: document.getElementById('f-dept').value,
+                    openings: document.getElementById('f-openings').value,
+                    type: document.getElementById('f-type').value
+                };
+                if (editTargetId) {
+                    appData.jobs = appData.jobs.map(x => x.id === editTargetId ? newItem : x);
+                } else {
+                    appData.jobs.push(newItem);
+                }
+            } else if (currentModalType === 'interview') {
+                const newItem = {
+                    id: editTargetId || Date.now(),
+                    candidate: document.getElementById('f-candidate').value,
+                    interviewer: document.getElementById('f-interviewer').value,
+                    datetime: document.getElementById('f-datetime').value,
+                    stage: document.getElementById('f-stage').value
+                };
+                if (editTargetId) {
+                    appData.interviews = appData.interviews.map(x => x.id === editTargetId ? newItem : x);
+                } else {
+                    appData.interviews.push(newItem);
+                }
+            } else if (currentModalType === 'approval') {
+                const newItem = {
+                    id: editTargetId || Date.now(),
+                    title: document.getElementById('f-aptitle').value,
+                    requestedBy: document.getElementById('f-reqby').value,
+                    status: document.getElementById('f-apstatus').value
+                };
+                if (editTargetId) {
+                    appData.approvals = appData.approvals.map(x => x.id === editTargetId ? newItem : x);
+                } else {
+                    appData.approvals.push(newItem);
+                }
+            }
+            closeAddModal();
+            persistData();
+        }
+
+        function editItem(type, id) {
+            openAddModal(type, id);
+        }
+
+        function deleteItem(type, id) {
+            if (confirm("Are you sure you want to delete this record?")) {
+                if (type === 'applicant') appData.applicants = appData.applicants.filter(x => x.id !== id);
+                if (type === 'job') appData.jobs = appData.jobs.filter(x => x.id !== id);
+                if (type === 'interview') appData.interviews = appData.interviews.filter(x => x.id !== id);
+                if (type === 'approval') appData.approvals = appData.approvals.filter(x => x.id !== id);
+                persistData();
+            }
+        }
+
+        // Mini AI Chat
+        function toggleAiChat() {
+            document.getElementById('ai-chat-box').classList.toggle('hidden');
+        }
+
         function sendMiniMessage() {
             const input = document.getElementById('chat-input');
             const messages = document.getElementById('chat-messages');
             const text = input.value.trim();
-            
-            if(!text) return;
+            if (!text) return;
 
-            // Append User Message
-            messages.innerHTML += `
-                <div class="p-3 bg-indigo-950/60 border border-indigo-900/50 rounded-xl ml-6 text-right text-slate-200">
-                    ${text}
-                </div>
-            `;
+            messages.innerHTML += `<div class="p-3 bg-indigo-950/60 border border-indigo-900/50 rounded-xl ml-6 text-right text-slate-200">${text}</div>`;
             input.value = '';
             messages.scrollTop = messages.scrollHeight;
 
-            // Simulate Mini's AI Response
             setTimeout(() => {
-                messages.innerHTML += `
-                    <div class="p-3 bg-slate-900 border border-slate-800 rounded-xl mr-6 text-slate-300">
-                        <strong>Mini:</strong> I've logged your request regarding "<em>${text}</em>" and updated the APPEXCELERATE recruitment queue accordingly!
-                    </div>
-                `;
+                let reply = `I'm tracking your pipeline updates, ${appData.user.name.split(' ')[0]}!`;
+                const t = text.toLowerCase();
+                if (t.includes('hello') || t.includes('hi')) {
+                    reply = `Hello ${appData.user.name}! How can I help you manage applicants or jobs today?`;
+                } else if (t.includes('add') || t.includes('new')) {
+                    reply = `You can easily add new records using the 'Add New Record' button at the top!`;
+                } else {
+                    reply = `I've noted your input regarding "${text}" and synchronized your recruitment board.`;
+                }
+                messages.innerHTML += `<div class="p-3 bg-slate-900 border border-slate-800 rounded-xl mr-6 text-slate-300"><strong>Mini:</strong> ${reply}</div>`;
                 messages.scrollTop = messages.scrollHeight;
             }, 600);
         }
 
         function handleChatKeyPress(e) {
-            if (e.key === 'Enter') {
-                sendMiniMessage();
-            }
+            if (e.key === 'Enter') sendMiniMessage();
         }
     </script>
 </body>

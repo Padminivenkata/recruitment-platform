@@ -23,6 +23,32 @@
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col">
 
+    <!-- LOGIN MODAL -->
+    <div id="login-modal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 w-full max-w-md space-y-4 shadow-2xl">
+            <div class="text-center space-y-1">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-600 to-violet-500 mx-auto flex items-center justify-center font-black text-white text-lg shadow-lg shadow-indigo-500/30 mb-3">
+                    AX
+                </div>
+                <h3 class="text-lg font-bold text-white">Welcome to APPEXCELERATE</h3>
+                <p class="text-xs text-slate-400">Enter your credentials to access your live recruitment workspace</p>
+            </div>
+            <div class="space-y-3 pt-2">
+                <div>
+                    <label class="block text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-1">Full Name</label>
+                    <input type="text" id="user-name-input" value="Venkata Padmini" placeholder="e.g. Venkata Padmini" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-1">Role / Designation</label>
+                    <input type="text" id="user-role-input" value="Technical Project Manager & Lead" placeholder="e.g. Technical Project Manager & Lead" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500">
+                </div>
+                <button type="button" onclick="handleUserLogin()" class="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold shadow-lg shadow-indigo-600/20 transition-all mt-2">
+                    Enter Workspace
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- TOP HEADER BAR -->
     <header class="h-16 border-b border-slate-800 bg-slate-900/60 backdrop-blur-md px-6 flex items-center justify-between sticky top-0 z-20">
         <div class="flex items-center gap-3">
@@ -48,6 +74,9 @@
                 <div id="user-avatar-initials" class="w-9 h-9 rounded-full bg-indigo-600/30 border border-indigo-500/40 flex items-center justify-center font-bold text-indigo-300 text-xs">
                     VP
                 </div>
+                <button type="button" onclick="openLoginModal()" title="Switch User" class="text-slate-400 hover:text-white text-xs ml-1 p-1 bg-slate-800 rounded-lg">
+                    <i data-lucide="user-cog" class="w-3.5 h-3.5"></i>
+                </button>
             </div>
         </div>
     </header>
@@ -57,23 +86,23 @@
         <aside class="w-64 border-r border-slate-800 bg-slate-900/40 p-4 hidden md:flex flex-col gap-6">
             <div class="space-y-1">
                 <p class="px-3 text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-2">Recruitment Hub</p>
-                <button onclick="switchTab('dashboard')" id="nav-dashboard" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl bg-indigo-600/10 text-indigo-400 font-medium text-xs border border-indigo-500/20 transition-all">
+                <button type="button" onclick="switchTab('dashboard')" id="nav-dashboard" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl bg-indigo-600/10 text-indigo-400 font-medium text-xs border border-indigo-500/20 transition-all">
                     <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Overview Dashboard
                 </button>
-                <button onclick="switchTab('applicants')" id="nav-applicants" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900 transition-all text-xs">
+                <button type="button" onclick="switchTab('applicants')" id="nav-applicants" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900 transition-all text-xs">
                     <i data-lucide="users" class="w-4 h-4"></i> LLM CV Semantic Match
                 </button>
-                <button onclick="switchTab('pipeline')" id="nav-pipeline" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900 transition-all text-xs">
+                <button type="button" onclick="switchTab('pipeline')" id="nav-pipeline" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900 transition-all text-xs">
                     <i data-lucide="git-branch" class="w-4 h-4"></i> Pipeline Stage Metrics
                 </button>
-                <button onclick="switchTab('jobs')" id="nav-jobs" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900 transition-all text-xs">
+                <button type="button" onclick="switchTab('jobs')" id="nav-jobs" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900 transition-all text-xs">
                     <i data-lucide="briefcase" class="w-4 h-4"></i> Jobs & Requisitions
                 </button>
             </div>
 
             <div class="space-y-1 pt-4 border-t border-slate-800/80">
                 <p class="px-3 text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-2">Communications</p>
-                <button onclick="switchTab('communications')" id="nav-communications" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900 transition-all text-xs">
+                <button type="button" onclick="switchTab('communications')" id="nav-communications" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900 transition-all text-xs">
                     <i data-lucide="mail" class="w-4 h-4"></i> Automated Candidate Emails
                 </button>
             </div>
@@ -85,11 +114,11 @@
             <!-- WELCOME BANNER -->
             <div class="p-6 rounded-2xl bg-gradient-to-r from-indigo-950/50 via-slate-900 to-slate-900 border border-indigo-900/40 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
-                    <h2 id="welcome-banner-title" class="text-xl font-bold text-white">Welcome back, Venkata Padmini! 👋</h2>
+                    <h2 id="welcome-banner-title" class="text-xl font-bold text-white">Welcome back! 👋</h2>
                     <p class="text-xs text-slate-400 mt-1">LLM Semantic matching active. Upload CVs for instant competency scanning and automated candidate alerts.</p>
                 </div>
                 <div class="flex gap-3">
-                    <button onclick="openAddModal('applicant')" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold shadow-lg shadow-indigo-600/25 transition-all flex items-center gap-2">
+                    <button type="button" onclick="openAddModal('applicant')" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold shadow-lg shadow-indigo-600/25 transition-all flex items-center gap-2">
                         <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Run LLM Resume Scan
                     </button>
                 </div>
@@ -119,15 +148,11 @@
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-4">
                         <h3 class="font-bold text-sm text-white">LLM Semantic Intelligence & Competency Insights</h3>
-                        <div id="dashboard-feed" class="space-y-3 text-xs text-slate-300">
-                            <!-- Dynamic insights -->
-                        </div>
+                        <div id="dashboard-feed" class="space-y-3 text-xs text-slate-300"></div>
                     </div>
                     <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-4">
                         <h3 class="font-bold text-sm text-white">Pipeline Stage Volume Breakdown</h3>
-                        <div id="dashboard-pipeline-summary" class="space-y-2 text-xs text-slate-300">
-                            <!-- Dynamic stage count -->
-                        </div>
+                        <div id="dashboard-pipeline-summary" class="space-y-2 text-xs text-slate-300"></div>
                     </div>
                 </div>
             </div>
@@ -140,7 +165,7 @@
                             <h3 class="font-bold text-sm text-white">Candidate CV Semantic Matching & Competencies</h3>
                             <p class="text-xs text-slate-400">AI analysis of skills, match scores, competencies, and shortlisting status.</p>
                         </div>
-                        <button onclick="openAddModal('applicant')" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-medium">Upload & Scan CV</button>
+                        <button type="button" onclick="openAddModal('applicant')" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-medium">Upload & Scan CV</button>
                     </div>
                     <div class="overflow-x-auto">
                         <table class="w-full text-left text-xs">
@@ -155,9 +180,7 @@
                                     <th class="pb-3 font-semibold text-right">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody id="applicants-table-body" class="divide-y divide-slate-800/60">
-                                <!-- Dynamic rows -->
-                            </tbody>
+                            <tbody id="applicants-table-body" class="divide-y divide-slate-800/60"></tbody>
                         </table>
                     </div>
                 </div>
@@ -170,9 +193,7 @@
                         <h3 class="font-bold text-sm text-white">Recruitment Pipeline Stage Counts</h3>
                         <p class="text-xs text-slate-400">Number of resumes currently active across each recruitment phase.</p>
                     </div>
-                    <div id="pipeline-stages-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                        <!-- Dynamic stage metric cards -->
-                    </div>
+                    <div id="pipeline-stages-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"></div>
                 </div>
             </div>
 
@@ -184,11 +205,9 @@
                             <h3 class="font-bold text-sm text-white">Active Requisitions & JD Criteria</h3>
                             <p class="text-xs text-slate-400">Job descriptions used by the LLM semantic scanning engine.</p>
                         </div>
-                        <button onclick="openAddModal('job')" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-medium">New Requisition</button>
+                        <button type="button" onclick="openAddModal('job')" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-medium">New Requisition</button>
                     </div>
-                    <div id="jobs-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <!-- Dynamic jobs -->
-                    </div>
+                    <div id="jobs-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
                 </div>
             </div>
 
@@ -200,13 +219,11 @@
                             <h3 class="font-bold text-sm text-white">Automated Candidate Email Queue</h3>
                             <p class="text-xs text-slate-400">Instant notifications sent regarding resume receipt, stage updates, and shortlist decisions.</p>
                         </div>
-                        <button onclick="triggerBulkEmails()" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-medium flex items-center gap-1.5">
+                        <button type="button" onclick="triggerBulkEmails()" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-medium flex items-center gap-1.5">
                             <i data-lucide="send" class="w-3.5 h-3.5"></i> Trigger Status Emails
                         </button>
                     </div>
-                    <div id="emails-log-list" class="space-y-3">
-                        <!-- Dynamic emails -->
-                    </div>
+                    <div id="emails-log-list" class="space-y-3"></div>
                 </div>
             </div>
 
@@ -218,21 +235,19 @@
         <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 w-full max-w-lg space-y-4 shadow-2xl">
             <div class="flex justify-between items-center">
                 <h3 id="modal-title" class="text-lg font-bold text-white">Add Record</h3>
-                <button onclick="closeAddModal()" class="text-slate-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+                <button type="button" onclick="closeAddModal()" class="text-slate-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
             </div>
-            <div id="modal-form-content" class="space-y-3 text-xs">
-                <!-- Form fields -->
-            </div>
+            <div id="modal-form-content" class="space-y-3 text-xs"></div>
             <div class="flex justify-end gap-2 pt-2">
-                <button onclick="closeAddModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl font-medium">Cancel</button>
-                <button onclick="saveModalData()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-semibold">Save & Run LLM Scan</button>
+                <button type="button" onclick="closeAddModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl font-medium">Cancel</button>
+                <button type="button" onclick="saveModalData()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-semibold cursor-pointer shadow-lg shadow-indigo-600/30">Save & Run LLM Scan</button>
             </div>
         </div>
     </div>
 
-    <!-- FLOATING AI ASSISTANT WIDGET (MINI) WITH EMPATHETIC NLP -->
+    <!-- FLOATING AI ASSISTANT WIDGET (MINI) -->
     <div class="fixed bottom-6 right-6 z-30">
-        <button onclick="toggleAiChat()" class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-indigo-600 to-violet-500 text-white flex items-center justify-center shadow-xl shadow-indigo-500/30 hover:scale-105 transition-all">
+        <button type="button" onclick="toggleAiChat()" class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-indigo-600 to-violet-500 text-white flex items-center justify-center shadow-xl shadow-indigo-500/30 hover:scale-105 transition-all">
             <i data-lucide="sparkles" class="w-6 h-6 animate-pulse"></i>
         </button>
 
@@ -242,7 +257,7 @@
                     <i data-lucide="sparkles" class="w-4 h-4"></i>
                     <span class="font-bold text-sm">Mini — APPEX AI Recruiter</span>
                 </div>
-                <button onclick="toggleAiChat()" class="text-white/80 hover:text-white"><i data-lucide="x" class="w-4 h-4"></i></button>
+                <button type="button" onclick="toggleAiChat()" class="text-white/80 hover:text-white"><i data-lucide="x" class="w-4 h-4"></i></button>
             </div>
             <div id="chat-messages" class="flex-1 p-4 space-y-3 overflow-y-auto text-xs text-slate-300">
                 <div id="chat-initial-greeting" class="p-3 bg-slate-900 border border-slate-800 rounded-xl">
@@ -251,7 +266,7 @@
             </div>
             <div class="p-3 border-t border-slate-800 bg-slate-950 flex gap-2">
                 <input type="text" id="chat-input" placeholder="Ask Mini anything..." class="flex-1 bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500" onkeypress="handleChatKeyPress(event)">
-                <button onclick="sendMiniMessage()" class="px-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-medium">Send</button>
+                <button type="button" onclick="sendMiniMessage()" class="px-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-medium">Send</button>
             </div>
         </div>
     </div>
@@ -264,7 +279,7 @@
                 { 
                     id: 1, 
                     name: "Khushboo N", 
-                    email: "khushboo@example.com", 
+                    email: "khushboo@app-xcelerate.com", 
                     position: "Technical Project Manager — AI", 
                     match: "96%", 
                     competencies: "Agile, SAFe, Python, LLM Dialogues, Stakeholder Mgmt", 
@@ -282,27 +297,14 @@
                     shortlisted: "Yes", 
                     stage: "Screening Review", 
                     cvName: "Rahul_Sharma_CV.docx" 
-                },
-                { 
-                    id: 3, 
-                    name: "Ananya Iyer", 
-                    email: "ananya@example.com", 
-                    position: "Conversational AI Developer", 
-                    match: "74%", 
-                    competencies: "JavaScript, React, Node.js", 
-                    shortlisted: "No", 
-                    stage: "Rejected", 
-                    cvName: "Ananya_Resume.pdf" 
                 }
             ],
             jobs: [
                 { id: 1, title: "Technical Project Manager — AI", dept: "AI Engineering", openings: 2, type: "Full-Time" },
-                { id: 2, title: "Senior Scrum Master (SAFe)", dept: "Delivery Management", openings: 1, type: "Full-Time" },
-                { id: 3, title: "Conversational AI Developer", dept: "AI Engineering", openings: 1, type: "Full-Time" }
+                { id: 2, title: "Senior Scrum Master (SAFe)", dept: "Delivery Management", openings: 1, type: "Full-Time" }
             ],
             emailsLog: [
-                { id: 1, candidate: "Khushboo N", email: "khushboo@example.com", status: "Shortlisted — Stage: L1 Technical Interview", sent: "Today, 10:30 AM" },
-                { id: 2, candidate: "Ananya Iyer", email: "ananya@example.com", status: "Not Shortlisted (Status: No) — Thank you", sent: "Today, 11:15 AM" }
+                { id: 1, candidate: "Khushboo N", email: "khushboo@app-xcelerate.com", status: "Shortlisted — Stage: L1 Technical Interview", sent: "Today, 10:30 AM" }
             ]
         };
 
@@ -310,6 +312,11 @@
         let editTargetId = null;
 
         window.addEventListener('DOMContentLoaded', () => {
+            const savedUser = localStorage.getItem('appex_user');
+            if (savedUser) {
+                appData.user = JSON.parse(savedUser);
+                document.getElementById('login-modal').classList.add('hidden');
+            }
             const savedData = localStorage.getItem('appex_pipeline_data');
             if (savedData) {
                 appData = JSON.parse(savedData);
@@ -317,20 +324,44 @@
             refreshUI();
         });
 
+        window.handleUserLogin = function() {
+            const nameInput = document.getElementById('user-name-input').value.trim();
+            const roleInput = document.getElementById('user-role-input').value.trim();
+            if (nameInput) appData.user.name = nameInput;
+            if (roleInput) appData.user.role = roleInput;
+            
+            localStorage.setItem('appex_user', JSON.stringify(appData.user));
+            document.getElementById('login-modal').classList.add('hidden');
+            refreshUI();
+        };
+
+        window.openLoginModal = function() {
+            document.getElementById('login-modal').classList.remove('hidden');
+        };
+
         function persistData() {
             localStorage.setItem('appex_pipeline_data', JSON.stringify(appData));
             refreshUI();
         }
 
-        function switchTab(tabId) {
+        window.switchTab = function(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            document.getElementById('tab-' + tabId).classList.remove('hidden');
+            const targetTab = document.getElementById('tab-' + tabId);
+            if (targetTab) {
+                targetTab.classList.remove('hidden');
+            } else {
+                // Fallback to dashboard if tab ID doesn't exist
+                document.getElementById('tab-dashboard').classList.remove('hidden');
+            }
             
             document.querySelectorAll('aside button[id^="nav-"]').forEach(btn => {
                 btn.className = "w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900 transition-all text-xs";
             });
-            document.getElementById('nav-' + tabId).className = "w-full flex items-center gap-3 px-3 py-2.5 rounded-xl bg-indigo-600/10 text-indigo-400 font-medium text-xs border border-indigo-500/20 transition-all";
-        }
+            const navBtn = document.getElementById('nav-' + tabId);
+            if (navBtn) {
+                navBtn.className = "w-full flex items-center gap-3 px-3 py-2.5 rounded-xl bg-indigo-600/10 text-indigo-400 font-medium text-xs border border-indigo-500/20 transition-all";
+            }
+        };
 
         function refreshUI() {
             lucide.createIcons();
@@ -349,20 +380,20 @@
             let appHtml = '';
             appData.applicants.forEach(a => {
                 const shortBadge = a.shortlisted === 'Yes' 
-                    ? '<span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-semibold border border-emerald-500/20">Yes (Shortlisted)</span>' 
-                    : '<span class="px-2 py-0.5 rounded bg-rose-500/10 text-rose-400 font-semibold border border-rose-500/20">No (Rejected)</span>';
+                    ? '<span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-semibold border border-emerald-500/25">Yes (Shortlisted)</span>' 
+                    : '<span class="px-2 py-0.5 rounded bg-rose-500/10 text-rose-400 font-semibold border border-rose-500/25">No (Rejected)</span>';
                 
                 appHtml += `
                     <tr>
                         <td class="py-3 font-medium text-white">${a.name}<br><span class="text-[10px] text-slate-400">${a.email}</span></td>
                         <td class="py-3 text-slate-300">${a.position}</td>
-                        <td class="py-3"><span class="px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-400 font-bold border border-indigo-500/20">${a.match}</span></td>
+                        <td class="py-3"><span class="px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-400 font-bold border border-indigo-500/25">${a.match}</span></td>
                         <td class="py-3 text-slate-300 max-w-xs truncate" title="${a.competencies}">${a.competencies}</td>
                         <td class="py-3">${shortBadge}</td>
                         <td class="py-3 text-sky-400 font-medium">${a.stage}</td>
                         <td class="py-3 text-right space-x-1">
-                            <button onclick="editItem('applicant', ${a.id})" class="px-2 py-1 bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-300 rounded text-[10px]">Edit</button>
-                            <button onclick="deleteItem('applicant', ${a.id})" class="px-2 py-1 bg-rose-600/20 hover:bg-rose-600/40 text-rose-300 rounded text-[10px]">Delete</button>
+                            <button type="button" onclick="editItem('applicant', ${a.id})" class="px-2 py-1 bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-300 rounded text-[10px]">Edit</button>
+                            <button type="button" onclick="deleteItem('applicant', ${a.id})" class="px-2 py-1 bg-rose-600/20 hover:bg-rose-600/40 text-rose-300 rounded text-[10px]">Delete</button>
                         </td>
                     </tr>
                 `;
@@ -396,8 +427,8 @@
                             <p class="text-xs text-slate-400 mt-1">Department: ${j.dept} • Openings: ${j.openings} • Type: ${j.type}</p>
                         </div>
                         <div class="space-x-1">
-                            <button onclick="editItem('job', ${j.id})" class="px-2 py-1 bg-indigo-600/20 text-indigo-300 rounded text-[10px]">Edit</button>
-                            <button onclick="deleteItem('job', ${j.id})" class="px-2 py-1 bg-rose-600/20 text-rose-300 rounded text-[10px]">Delete</button>
+                            <button type="button" onclick="editItem('job', ${j.id})" class="px-2 py-1 bg-indigo-600/20 text-indigo-300 rounded text-[10px]">Edit</button>
+                            <button type="button" onclick="deleteItem('job', ${j.id})" class="px-2 py-1 bg-rose-600/20 text-rose-300 rounded text-[10px]">Delete</button>
                         </div>
                     </div>
                 `;
@@ -425,7 +456,7 @@
             lucide.createIcons();
         }
 
-        function openAddModal(type = 'applicant', id = null) {
+        window.openAddModal = function(type = 'applicant', id = null) {
             currentModalType = type;
             editTargetId = id;
             const modal = document.getElementById('generic-modal');
@@ -438,7 +469,7 @@
                 item = appData[type + 's']?.find(x => x.id === id);
                 title.innerText = `Edit ${type.charAt(0).toUpperCase() + type.slice(1)}`;
             } else {
-                title.innerText = `Add & Run LLM Scan`;
+                title.innerText = type === 'job' ? `Add New Requisition` : `Add & Run LLM Scan`;
             }
 
             if (type === 'applicant') {
@@ -476,21 +507,28 @@
                     <div><label class="block text-slate-400 mb-1">Openings</label><input type="number" id="f-openings" value="${item?.openings || 1}" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200"></div>
                 `;
             }
-        }
+        };
 
-        function closeAddModal() {
+        window.closeAddModal = function() {
             document.getElementById('generic-modal').classList.add('hidden');
             editTargetId = null;
-        }
+        };
 
-        function saveModalData() {
+        window.saveModalData = function() {
             if (currentModalType === 'applicant') {
-                const name = document.getElementById('f-name').value;
-                const email = document.getElementById('f-email').value;
-                const position = document.getElementById('f-position').value;
-                const competencies = document.getElementById('f-competencies').value;
-                const shortlisted = document.getElementById('f-shortlisted').value;
-                const stage = document.getElementById('f-stage').value;
+                const nameEl = document.getElementById('f-name');
+                const emailEl = document.getElementById('f-email');
+                const positionEl = document.getElementById('f-position');
+                
+                const name = nameEl ? nameEl.value : 'Candidate';
+                const email = emailEl ? emailEl.value : 'candidate@example.com';
+                const position = positionEl ? positionEl.value : 'Software Engineer';
+                const compEl = document.getElementById('f-competencies');
+                const competencies = compEl ? compEl.value : 'Agile, Problem Solving';
+                const shortEl = document.getElementById('f-shortlisted');
+                const shortlisted = shortEl ? shortEl.value : 'Yes';
+                const stageEl = document.getElementById('f-stage');
+                const stage = stageEl ? stageEl.value : 'Sourcing';
                 
                 const randomScore = Math.floor(Math.random() * (97 - 82 + 1)) + 82 + "%";
 
@@ -517,11 +555,15 @@
                     });
                 }
             } else if (currentModalType === 'job') {
+                const titleEl = document.getElementById('f-title');
+                const deptEl = document.getElementById('f-dept');
+                const opEl = document.getElementById('f-openings');
+
                 const newItem = {
                     id: editTargetId || Date.now(),
-                    title: document.getElementById('f-title').value,
-                    dept: document.getElementById('f-dept').value,
-                    openings: document.getElementById('f-openings').value,
+                    title: titleEl ? titleEl.value : 'New Requisition',
+                    dept: deptEl ? deptEl.value : 'Engineering',
+                    openings: opEl ? opEl.value : 1,
                     type: "Full-Time"
                 };
                 if (editTargetId) {
@@ -532,30 +574,30 @@
             }
             closeAddModal();
             persistData();
-        }
+        };
 
-        function editItem(type, id) {
+        window.editItem = function(type, id) {
             openAddModal(type, id);
-        }
+        };
 
-        function deleteItem(type, id) {
+        window.deleteItem = function(type, id) {
             if (confirm("Are you sure you want to delete this record?")) {
                 if (type === 'applicant') appData.applicants = appData.applicants.filter(x => String(x.id) !== String(id));
                 if (type === 'job') appData.jobs = appData.jobs.filter(x => String(x.id) !== String(id));
                 persistData();
             }
-        }
+        };
 
-        function triggerBulkEmails() {
+        window.triggerBulkEmails = function() {
             alert("Automated email dispatch simulated! All candidates have received updates regarding their resume queue status and pipeline stage.");
-        }
+        };
 
-        // Mini AI Chat with Empathetic NLP & Emotional Intelligence
-        function toggleAiChat() {
+        // Mini AI Chat with Empathetic NLP
+        window.toggleAiChat = function() {
             document.getElementById('ai-chat-box').classList.toggle('hidden');
-        }
+        };
 
-        function sendMiniMessage() {
+        window.sendMiniMessage = function() {
             const input = document.getElementById('chat-input');
             const messages = document.getElementById('chat-messages');
             const text = input.value.trim();
@@ -583,11 +625,11 @@
                 messages.innerHTML += `<div class="p-3 bg-slate-900 border border-slate-800 rounded-xl mr-6 text-slate-300"><strong>Mini:</strong> ${reply}</div>`;
                 messages.scrollTop = messages.scrollHeight;
             }, 700);
-        }
+        };
 
-        function handleChatKeyPress(e) {
+        window.handleChatKeyPress = function(e) {
             if (e.key === 'Enter') sendMiniMessage();
-        }
+        };
     </script>
 </body>
 </html>

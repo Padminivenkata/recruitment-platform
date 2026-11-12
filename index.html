@@ -23,32 +23,6 @@
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col">
 
-    <!-- LOGIN MODAL -->
-    <div id="login-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 w-full max-w-md space-y-4 shadow-2xl">
-            <div class="text-center space-y-1">
-                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-600 to-violet-500 mx-auto flex items-center justify-center font-black text-white text-lg shadow-lg shadow-indigo-500/30 mb-3">
-                    AX
-                </div>
-                <h3 class="text-lg font-bold text-white">Welcome to APPEXCELERATE</h3>
-                <p class="text-xs text-slate-400">Enter your credentials to access your live recruitment workspace</p>
-            </div>
-            <div class="space-y-3 pt-2">
-                <div>
-                    <label class="block text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-1">Full Name</label>
-                    <input type="text" id="user-name-input" placeholder="e.g. Venkata Padmini" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500">
-                </div>
-                <div>
-                    <label class="block text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-1">Role / Designation</label>
-                    <input type="text" id="user-role-input" placeholder="e.g. Technical Project Manager & Lead" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500">
-                </div>
-                <button onclick="handleUserLogin()" class="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold shadow-lg shadow-indigo-600/20 transition-all mt-2">
-                    Enter Workspace
-                </button>
-            </div>
-        </div>
-    </div>
-
     <!-- TOP HEADER BAR -->
     <header class="h-16 border-b border-slate-800 bg-slate-900/60 backdrop-blur-md px-6 flex items-center justify-between sticky top-0 z-20">
         <div class="flex items-center gap-3">
@@ -74,9 +48,6 @@
                 <div id="user-avatar-initials" class="w-9 h-9 rounded-full bg-indigo-600/30 border border-indigo-500/40 flex items-center justify-center font-bold text-indigo-300 text-xs">
                     VP
                 </div>
-                <button onclick="openLoginModal()" title="Switch User" class="text-slate-400 hover:text-white text-xs ml-1 p-1 bg-slate-800 rounded-lg">
-                    <i data-lucide="user-cog" class="w-3.5 h-3.5"></i>
-                </button>
             </div>
         </div>
     </header>
@@ -114,7 +85,7 @@
             <!-- WELCOME BANNER -->
             <div class="p-6 rounded-2xl bg-gradient-to-r from-indigo-950/50 via-slate-900 to-slate-900 border border-indigo-900/40 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
-                    <h2 id="welcome-banner-title" class="text-xl font-bold text-white">Welcome back! 👋</h2>
+                    <h2 id="welcome-banner-title" class="text-xl font-bold text-white">Welcome back, Venkata Padmini! 👋</h2>
                     <p class="text-xs text-slate-400 mt-1">LLM Semantic matching active. Upload CVs for instant competency scanning and automated candidate alerts.</p>
                 </div>
                 <div class="flex gap-3">
@@ -259,7 +230,7 @@
         </div>
     </div>
 
-    <!-- FLOATING AI ASSISTANT WIDGET (MINI) -->
+    <!-- FLOATING AI ASSISTANT WIDGET (MINI) WITH EMPATHETIC NLP -->
     <div class="fixed bottom-6 right-6 z-30">
         <button onclick="toggleAiChat()" class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-indigo-600 to-violet-500 text-white flex items-center justify-center shadow-xl shadow-indigo-500/30 hover:scale-105 transition-all">
             <i data-lucide="sparkles" class="w-6 h-6 animate-pulse"></i>
@@ -275,7 +246,7 @@
             </div>
             <div id="chat-messages" class="flex-1 p-4 space-y-3 overflow-y-auto text-xs text-slate-300">
                 <div id="chat-initial-greeting" class="p-3 bg-slate-900 border border-slate-800 rounded-xl">
-                    Hello! I'm Mini. I've configured the LLM semantic scanning engine and automated candidate email triggers. How can I assist your pipeline today?
+                    Hello Padmini! I'm Mini. How are you holding up today? I'm ready to help you manage resumes or pipeline stages.
                 </div>
             </div>
             <div class="p-3 border-t border-slate-800 bg-slate-950 flex gap-2">
@@ -339,11 +310,6 @@
         let editTargetId = null;
 
         window.addEventListener('DOMContentLoaded', () => {
-            const savedUser = localStorage.getItem('appex_user');
-            if (savedUser) {
-                appData.user = JSON.parse(savedUser);
-                document.getElementById('login-modal').classList.add('hidden');
-            }
             const savedData = localStorage.getItem('appex_pipeline_data');
             if (savedData) {
                 appData = JSON.parse(savedData);
@@ -354,20 +320,6 @@
         function persistData() {
             localStorage.setItem('appex_pipeline_data', JSON.stringify(appData));
             refreshUI();
-        }
-
-        function handleUserLogin() {
-            const name = document.getElementById('user-name-input').value.trim();
-            const role = document.getElementById('user-role-input').value.trim();
-            if (name) appData.user.name = name;
-            if (role) appData.user.role = role;
-            localStorage.setItem('appex_user', JSON.stringify(appData.user));
-            document.getElementById('login-modal').classList.add('hidden');
-            refreshUI();
-        }
-
-        function openLoginModal() {
-            document.getElementById('login-modal').classList.remove('hidden');
         }
 
         function switchTab(tabId) {
@@ -387,7 +339,6 @@
             document.getElementById('welcome-banner-title').innerText = `Welcome back, ${appData.user.name}! 👋`;
             document.getElementById('user-avatar-initials').innerText = appData.user.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'AX';
 
-            // Top Stats
             const totalApplicants = appData.applicants.length;
             const shortlistedCount = appData.applicants.filter(a => a.shortlisted === 'Yes').length;
             document.getElementById('stat-total').innerText = totalApplicants;
@@ -395,7 +346,6 @@
             document.getElementById('stat-jobs').innerText = appData.jobs.length;
             document.getElementById('stat-emails').innerText = appData.emailsLog.length;
 
-            // Render Applicants Table
             let appHtml = '';
             appData.applicants.forEach(a => {
                 const shortBadge = a.shortlisted === 'Yes' 
@@ -419,7 +369,6 @@
             });
             document.getElementById('applicants-table-body').innerHTML = appHtml || `<tr><td colspan="7" class="py-4 text-center text-slate-500">No applicants scanned yet.</td></tr>`;
 
-            // Pipeline Stage Metrics Calculation
             const stages = { "Sourcing": 0, "Screening Review": 0, "L1 Technical Interview": 0, "L2 Architecture": 0, "Offer": 0, "Rejected": 0 };
             appData.applicants.forEach(a => {
                 if (stages[a.stage] !== undefined) stages[a.stage]++;
@@ -438,7 +387,6 @@
             document.getElementById('pipeline-stages-grid').innerHTML = stagesHtml;
             document.getElementById('dashboard-pipeline-summary').innerHTML = Object.entries(stages).map(([s, c]) => `<div class="flex justify-between py-1 border-b border-slate-800/60"><span>${s}</span><span class="font-bold text-white">${c} candidates</span></div>`).join('');
 
-            // Render Jobs
             let jobHtml = '';
             appData.jobs.forEach(j => {
                 jobHtml += `
@@ -456,7 +404,6 @@
             });
             document.getElementById('jobs-grid').innerHTML = jobHtml;
 
-            // Render Emails Log
             let emailHtml = '';
             appData.emailsLog.forEach(e => {
                 emailHtml += `
@@ -471,7 +418,6 @@
             });
             document.getElementById('emails-log-list').innerHTML = emailHtml || `<p class="text-slate-500 text-xs">No automated emails triggered yet.</p>`;
 
-            // Dashboard Feed Insights
             document.getElementById('dashboard-feed').innerHTML = `
                 <div class="p-3 bg-slate-950 border border-slate-800 rounded-xl">✨ LLM Semantic engine successfully evaluated <strong>${totalApplicants}</strong> candidate resumes against active job descriptions. Top candidate: <strong>${appData.applicants[0]?.name || 'None'}</strong> (${appData.applicants[0]?.match || '0%'}).</div>
                 <div class="p-3 bg-slate-950 border border-slate-800 rounded-xl">✉️ Automated email dispatcher is active, notifying candidates on shortlist decisions (Yes/No) and live pipeline stages.</div>
@@ -479,7 +425,6 @@
             lucide.createIcons();
         }
 
-        // Modal Management
         function openAddModal(type = 'applicant', id = null) {
             currentModalType = type;
             editTargetId = id;
@@ -547,7 +492,6 @@
                 const shortlisted = document.getElementById('f-shortlisted').value;
                 const stage = document.getElementById('f-stage').value;
                 
-                // Simulate LLM semantic match score calculation based on text
                 const randomScore = Math.floor(Math.random() * (97 - 82 + 1)) + 82 + "%";
 
                 const newItem = {
@@ -564,7 +508,6 @@
                     appData.applicants = appData.applicants.map(x => String(x.id) === String(editTargetId) ? newItem : x);
                 } else {
                     appData.applicants.push(newItem);
-                    // Automatically log simulated email notification
                     appData.emailsLog.unshift({
                         id: Date.now(),
                         candidate: name,
@@ -607,63 +550,39 @@
             alert("Automated email dispatch simulated! All candidates have received updates regarding their resume queue status and pipeline stage.");
         }
 
-        // Mini AI Chat
+        // Mini AI Chat with Empathetic NLP & Emotional Intelligence
         function toggleAiChat() {
             document.getElementById('ai-chat-box').classList.toggle('hidden');
         }
 
-// Mini AI Chat with Empathetic NLP & Emotional Intelligence
-function sendMiniMessage() {
-    const input = document.getElementById('chat-input');
-    const messages = document.getElementById('chat-messages');
-    const text = input.value.trim();
-    if (!text) return;
+        function sendMiniMessage() {
+            const input = document.getElementById('chat-input');
+            const messages = document.getElementById('chat-messages');
+            const text = input.value.trim();
+            if (!text) return;
 
-    // Append User Message
-    messages.innerHTML += `<div class="p-3 bg-indigo-950/60 border border-indigo-900/50 rounded-xl ml-6 text-right text-slate-200">${text}</div>`;
-    input.value = '';
-    messages.scrollTop = messages.scrollHeight;
+            messages.innerHTML += `<div class="p-3 bg-indigo-950/60 border border-indigo-900/50 rounded-xl ml-6 text-right text-slate-200">${text}</div>`;
+            input.value = '';
+            messages.scrollTop = messages.scrollHeight;
 
-    // Simulate Empathetic NLP & Human-Like Intelligence
-    setTimeout(() => {
-        let reply = `I'm right here with you.`;
-        const t = text.toLowerCase();
-
-        // Emotional & Health Awareness
-        if (t.includes('not feeling well') || t.includes('sick') || t.includes('tired') || t.includes('headache') || t.includes('unwell')) {
-            reply = `Oh no, Padmini! Please take it easy and step away from work if you need to. Your health comes first. Do you want me to handle any urgent candidate notifications or put your pending approvals on hold until you're back?`;
-        } 
-        // Greetings
-        else if (t.includes('hello') || t.includes('hi') || t.includes('hey')) {
-            reply = `Hello Padmini! It's so good to talk to you. How are you holding up today? I'm ready to help you with anything you need.`;
-        } 
-        // Candidate / Shortlist Queries
-        else if (t.includes('shortlist') || t.includes('candidate') || t.includes('resume')) {
-            const shortlistedCount = appData.applicants.filter(a => a.shortlisted === 'Yes').length;
-            reply = `We currently have ${shortlistedCount} shortlisted candidates in the queue. Would you like me to pull up the details for Khushboo or review the stage metrics for you?`;
-        } 
-        // General fallback with empathy
-        else {
-            reply = `I hear you, Padmini. I've noted that down, but more importantly—is there anything specific I can take off your plate right now so you can rest?`;
-        }
-
-        messages.innerHTML += `<div class="p-3 bg-slate-900 border border-slate-800 rounded-xl mr-6 text-slate-300"><strong>Mini:</strong> ${reply}</div>`;
-        messages.scrollTop = messages.scrollHeight;
-    }, 700);
-}
             setTimeout(() => {
-                let reply = `I'm scanning your applicant queue with the LLM engine, ${appData.user.name.split(' ')[0]}!`;
+                let reply = `I'm right here with you, Padmini.`;
                 const t = text.toLowerCase();
-                if (t.includes('hello') || t.includes('hi')) {
-                    reply = `Hello ${appData.user.name}! How can I help you analyze candidate competencies or check stage metrics today?`;
-                } else if (t.includes('shortlist') || t.includes('status')) {
-                    reply = `We currently have ${appData.applicants.filter(a => a.shortlisted === 'Yes').length} shortlisted candidates across our pipeline stages.`;
+
+                if (t.includes('not feeling well') || t.includes('sick') || t.includes('tired') || t.includes('headache') || t.includes('unwell')) {
+                    reply = `Oh no, Padmini! Please take it easy and step away from work if you need to. Your health comes first. Do you want me to handle any urgent candidate notifications or put your pending items on hold until you're back?`;
+                } else if (t.includes('hello') || t.includes('hi') || t.includes('hey')) {
+                    reply = `Hello Padmini! It's so good to talk to you. How are you holding up today? I'm ready to help you with anything you need.`;
+                } else if (t.includes('shortlist') || t.includes('candidate') || t.includes('resume')) {
+                    const shortlistedCount = appData.applicants.filter(a => a.shortlisted === 'Yes').length;
+                    reply = `We currently have ${shortlistedCount} shortlisted candidates in the queue. Would you like me to pull up the details for Khushboo or review the stage metrics for you?`;
                 } else {
-                    reply = `I've processed your request regarding "${text}" and updated the recruitment analytics.`;
+                    reply = `I hear you, Padmini. Is there anything specific I can take off your plate right now so you can rest?`;
                 }
+
                 messages.innerHTML += `<div class="p-3 bg-slate-900 border border-slate-800 rounded-xl mr-6 text-slate-300"><strong>Mini:</strong> ${reply}</div>`;
                 messages.scrollTop = messages.scrollHeight;
-            }, 600);
+            }, 700);
         }
 
         function handleChatKeyPress(e) {

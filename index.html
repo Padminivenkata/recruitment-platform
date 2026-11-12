@@ -36,11 +36,11 @@
             <div class="space-y-3 pt-2">
                 <div>
                     <label class="block text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-1">Full Name</label>
-                    <input type="text" id="user-name-input" placeholder="e.g. Uma G S" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500">
+                    <input type="text" id="user-name-input" placeholder="e.g. Venkata Padmini" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500">
                 </div>
                 <div>
                     <label class="block text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-1">Role / Designation</label>
-                    <input type="text" id="user-role-input" placeholder="e.g. HR Manager / Scrum Lead" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500">
+                    <input type="text" id="user-role-input" placeholder="e.g. Technical Project Manager & Lead" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500">
                 </div>
                 <button onclick="handleUserLogin()" class="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold shadow-lg shadow-indigo-600/20 transition-all mt-2">
                     Enter Workspace
@@ -64,7 +64,7 @@
         <div class="flex items-center gap-4">
             <span class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                AI Core Active
+                LLM Semantic Engine Active
             </span>
             <div class="flex items-center gap-3 pl-3 border-l border-slate-800">
                 <div class="text-right hidden sm:block">
@@ -90,20 +90,20 @@
                     <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Overview Dashboard
                 </button>
                 <button onclick="switchTab('applicants')" id="nav-applicants" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900 transition-all text-xs">
-                    <i data-lucide="users" class="w-4 h-4"></i> Applicants & AI Match
+                    <i data-lucide="users" class="w-4 h-4"></i> LLM CV Semantic Match
+                </button>
+                <button onclick="switchTab('pipeline')" id="nav-pipeline" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900 transition-all text-xs">
+                    <i data-lucide="git-branch" class="w-4 h-4"></i> Pipeline Stage Metrics
                 </button>
                 <button onclick="switchTab('jobs')" id="nav-jobs" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900 transition-all text-xs">
                     <i data-lucide="briefcase" class="w-4 h-4"></i> Jobs & Requisitions
                 </button>
-                <button onclick="switchTab('interviews')" id="nav-interviews" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900 transition-all text-xs">
-                    <i data-lucide="calendar" class="w-4 h-4"></i> Interviews & Rubrics
-                </button>
             </div>
 
             <div class="space-y-1 pt-4 border-t border-slate-800/80">
-                <p class="px-3 text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-2">Operations</p>
-                <button onclick="switchTab('approvals')" id="nav-approvals" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900 transition-all text-xs">
-                    <i data-lucide="check-circle" class="w-4 h-4"></i> Pending Approvals
+                <p class="px-3 text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-2">Communications</p>
+                <button onclick="switchTab('communications')" id="nav-communications" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900 transition-all text-xs">
+                    <i data-lucide="mail" class="w-4 h-4"></i> Automated Candidate Emails
                 </button>
             </div>
         </aside>
@@ -115,11 +115,11 @@
             <div class="p-6 rounded-2xl bg-gradient-to-r from-indigo-950/50 via-slate-900 to-slate-900 border border-indigo-900/40 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
                     <h2 id="welcome-banner-title" class="text-xl font-bold text-white">Welcome back! 👋</h2>
-                    <p class="text-xs text-slate-400 mt-1">Manage live talent pipeline, evaluate AI matches, and attach candidate CVs.</p>
+                    <p class="text-xs text-slate-400 mt-1">LLM Semantic matching active. Upload CVs for instant competency scanning and automated candidate alerts.</p>
                 </div>
                 <div class="flex gap-3">
-                    <button onclick="openAddModal('applicant')" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold shadow-lg shadow-indigo-600/20 transition-all flex items-center gap-2">
-                        <i data-lucide="plus" class="w-3.5 h-3.5"></i> Add Candidate & Upload CV
+                    <button onclick="openAddModal('applicant')" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold shadow-lg shadow-indigo-600/25 transition-all flex items-center gap-2">
+                        <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Run LLM Resume Scan
                     </button>
                 </div>
             </div>
@@ -128,51 +128,60 @@
             <div id="tab-dashboard" class="space-y-6 tab-content">
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800">
-                        <p class="text-xs font-medium text-slate-400">Total Applicants</p>
+                        <p class="text-xs font-medium text-slate-400">Total Applicants Scanned</p>
                         <h3 id="stat-total" class="text-2xl font-bold text-white mt-2">0</h3>
                     </div>
                     <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800">
-                        <p class="text-xs font-medium text-slate-400">Average AI Match</p>
-                        <h3 class="text-2xl font-bold text-white mt-2">93.2%</h3>
+                        <p class="text-xs font-medium text-slate-400">Shortlisted Candidates</p>
+                        <h3 id="stat-shortlisted" class="text-2xl font-bold text-emerald-400 mt-2">0</h3>
                     </div>
                     <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800">
                         <p class="text-xs font-medium text-slate-400">Active Open Requisitions</p>
                         <h3 id="stat-jobs" class="text-2xl font-bold text-white mt-2">0</h3>
                     </div>
                     <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800">
-                        <p class="text-xs font-medium text-slate-400">Pending Approvals</p>
-                        <h3 id="stat-approvals" class="text-2xl font-bold text-white mt-2">0</h3>
+                        <p class="text-xs font-medium text-slate-400">Emails Dispatched</p>
+                        <h3 id="stat-emails" class="text-2xl font-bold text-indigo-400 mt-2">0</h3>
                     </div>
                 </div>
 
-                <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-4">
-                    <h3 class="font-bold text-sm text-white">Recent Pipeline Activity & AI Highlights</h3>
-                    <div id="dashboard-feed" class="space-y-3 text-xs text-slate-300">
-                        <!-- Dynamic feed items injected here -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-4">
+                        <h3 class="font-bold text-sm text-white">LLM Semantic Intelligence & Competency Insights</h3>
+                        <div id="dashboard-feed" class="space-y-3 text-xs text-slate-300">
+                            <!-- Dynamic insights -->
+                        </div>
+                    </div>
+                    <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-4">
+                        <h3 class="font-bold text-sm text-white">Pipeline Stage Volume Breakdown</h3>
+                        <div id="dashboard-pipeline-summary" class="space-y-2 text-xs text-slate-300">
+                            <!-- Dynamic stage count -->
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- TAB 2: APPLICANTS & AI MATCH -->
+            <!-- TAB 2: APPLICANTS & LLM SEMANTIC MATCH -->
             <div id="tab-applicants" class="space-y-6 tab-content hidden">
                 <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-4">
                     <div class="flex justify-between items-center">
                         <div>
-                            <h3 class="font-bold text-sm text-white">Candidate AI Evaluation & CV Attachments</h3>
-                            <p class="text-xs text-slate-400">Upload resumes, review AI match scores, manage applicants.</p>
+                            <h3 class="font-bold text-sm text-white">Candidate CV Semantic Matching & Competencies</h3>
+                            <p class="text-xs text-slate-400">AI analysis of skills, match scores, competencies, and shortlisting status.</p>
                         </div>
-                        <button onclick="openAddModal('applicant')" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-medium">Add Candidate & CV</button>
+                        <button onclick="openAddModal('applicant')" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-medium">Upload & Scan CV</button>
                     </div>
                     <div class="overflow-x-auto">
                         <table class="w-full text-left text-xs">
                             <thead>
                                 <tr class="border-b border-slate-800 text-slate-400">
-                                    <th class="pb-3 font-semibold">Candidate Name</th>
-                                    <th class="pb-3 font-semibold">Position</th>
-                                    <th class="pb-3 font-semibold">AI Match Score</th>
-                                    <th class="pb-3 font-semibold">Attached CV</th>
-                                    <th class="pb-3 font-semibold">Status</th>
-                                    <th class="pb-3 font-semibold text-right">Manage</th>
+                                    <th class="pb-3 font-semibold">Candidate</th>
+                                    <th class="pb-3 font-semibold">Target Position</th>
+                                    <th class="pb-3 font-semibold">LLM Match Score</th>
+                                    <th class="pb-3 font-semibold">Competencies Extracted</th>
+                                    <th class="pb-3 font-semibold">Shortlist Status</th>
+                                    <th class="pb-3 font-semibold">Pipeline Stage</th>
+                                    <th class="pb-3 font-semibold text-right">Actions</th>
                                 </tr>
                             </thead>
                             <tbody id="applicants-table-body" class="divide-y divide-slate-800/60">
@@ -183,63 +192,49 @@
                 </div>
             </div>
 
-            <!-- TAB 3: JOBS & REQUISITIONS -->
+            <!-- TAB 3: PIPELINE STAGE METRICS -->
+            <div id="tab-pipeline" class="space-y-6 tab-content hidden">
+                <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-6">
+                    <div>
+                        <h3 class="font-bold text-sm text-white">Recruitment Pipeline Stage Counts</h3>
+                        <p class="text-xs text-slate-400">Number of resumes currently active across each recruitment phase.</p>
+                    </div>
+                    <div id="pipeline-stages-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <!-- Dynamic stage metric cards -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: JOBS & REQUISITIONS -->
             <div id="tab-jobs" class="space-y-6 tab-content hidden">
                 <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-4">
                     <div class="flex justify-between items-center">
                         <div>
-                            <h3 class="font-bold text-sm text-white">Active Requisitions</h3>
-                            <p class="text-xs text-slate-400">Open enterprise positions currently sourcing applicants.</p>
+                            <h3 class="font-bold text-sm text-white">Active Requisitions & JD Criteria</h3>
+                            <p class="text-xs text-slate-400">Job descriptions used by the LLM semantic scanning engine.</p>
                         </div>
                         <button onclick="openAddModal('job')" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-medium">New Requisition</button>
                     </div>
                     <div id="jobs-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <!-- Dynamic job cards -->
+                        <!-- Dynamic jobs -->
                     </div>
                 </div>
             </div>
 
-            <!-- TAB 4: INTERVIEWS -->
-            <div id="tab-interviews" class="space-y-6 tab-content hidden">
+            <!-- TAB 5: AUTOMATED CANDIDATE EMAILS -->
+            <div id="tab-communications" class="space-y-6 tab-content hidden">
                 <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-4">
                     <div class="flex justify-between items-center">
                         <div>
-                            <h3 class="font-bold text-sm text-white">Scheduled Interviews & Rubrics</h3>
-                            <p class="text-xs text-slate-400">L1 and L2 evaluation schedule.</p>
+                            <h3 class="font-bold text-sm text-white">Automated Candidate Email Queue</h3>
+                            <p class="text-xs text-slate-400">Instant notifications sent regarding resume receipt, stage updates, and shortlist decisions.</p>
                         </div>
-                        <button onclick="openAddModal('interview')" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-medium">Schedule Interview</button>
+                        <button onclick="triggerBulkEmails()" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-medium flex items-center gap-1.5">
+                            <i data-lucide="send" class="w-3.5 h-3.5"></i> Trigger Status Emails
+                        </button>
                     </div>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left text-xs">
-                            <thead>
-                                <tr class="border-b border-slate-800 text-slate-400">
-                                    <th class="pb-3 font-semibold">Candidate</th>
-                                    <th class="pb-3 font-semibold">Interviewer</th>
-                                    <th class="pb-3 font-semibold">Date & Time</th>
-                                    <th class="pb-3 font-semibold">Stage</th>
-                                    <th class="pb-3 font-semibold text-right">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="interviews-table-body" class="divide-y divide-slate-800/60">
-                                <!-- Dynamic rows -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <!-- TAB 5: PENDING APPROVALS -->
-            <div id="tab-approvals" class="space-y-6 tab-content hidden">
-                <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-4">
-                    <div class="flex justify-between items-center">
-                        <div>
-                            <h3 class="font-bold text-sm text-white">Pending Leadership Signoffs</h3>
-                            <p class="text-xs text-slate-400">Approvals required from HR and Technical Leads.</p>
-                        </div>
-                        <button onclick="openAddModal('approval')" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-medium">Request Approval</button>
-                    </div>
-                    <div id="approvals-list" class="space-y-3">
-                        <!-- Dynamic approvals -->
+                    <div id="emails-log-list" class="space-y-3">
+                        <!-- Dynamic emails -->
                     </div>
                 </div>
             </div>
@@ -251,15 +246,15 @@
     <div id="generic-modal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 w-full max-w-lg space-y-4 shadow-2xl">
             <div class="flex justify-between items-center">
-                <h3 id="modal-title" class="text-lg font-bold text-white">Add New Record</h3>
+                <h3 id="modal-title" class="text-lg font-bold text-white">Add Record</h3>
                 <button onclick="closeAddModal()" class="text-slate-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
             </div>
             <div id="modal-form-content" class="space-y-3 text-xs">
-                <!-- Form fields injected dynamically -->
+                <!-- Form fields -->
             </div>
             <div class="flex justify-end gap-2 pt-2">
                 <button onclick="closeAddModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl font-medium">Cancel</button>
-                <button onclick="saveModalData()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-semibold">Save Record</button>
+                <button onclick="saveModalData()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-semibold">Save & Run LLM Scan</button>
             </div>
         </div>
     </div>
@@ -280,7 +275,7 @@
             </div>
             <div id="chat-messages" class="flex-1 p-4 space-y-3 overflow-y-auto text-xs text-slate-300">
                 <div id="chat-initial-greeting" class="p-3 bg-slate-900 border border-slate-800 rounded-xl">
-                    Hello! I'm Mini. Upload candidate resumes and I'll parse them instantly. How can I assist your hiring pipeline today?
+                    Hello! I'm Mini. I've configured the LLM semantic scanning engine and automated candidate email triggers. How can I assist your pipeline today?
                 </div>
             </div>
             <div class="p-3 border-t border-slate-800 bg-slate-950 flex gap-2">
@@ -290,23 +285,53 @@
         </div>
     </div>
 
-    <!-- INTERACTIVE APP LOGIC WITH FILE ATTACHMENTS -->
+    <!-- SCRIPT LOGIC -->
     <script>
         let appData = {
             user: { name: "Venkata Padmini", role: "Technical Project Manager & Lead" },
             applicants: [
-                { id: 1, name: "Khushboo N", position: "Technical Project Manager — AI", match: "94%", cvName: "Khushboo_N_Resume.pdf", status: "L1 Interview Completed" },
-                { id: 2, name: "Rahul Sharma", position: "Senior Scrum Master (SAFe)", match: "89%", cvName: "Rahul_Sharma_CV.docx", status: "Screening Pending" }
+                { 
+                    id: 1, 
+                    name: "Khushboo N", 
+                    email: "khushboo@example.com", 
+                    position: "Technical Project Manager — AI", 
+                    match: "96%", 
+                    competencies: "Agile, SAFe, Python, LLM Dialogues, Stakeholder Mgmt", 
+                    shortlisted: "Yes", 
+                    stage: "L1 Technical Interview", 
+                    cvName: "Khushboo_N_Resume.pdf" 
+                },
+                { 
+                    id: 2, 
+                    name: "Rahul Sharma", 
+                    email: "rahul@example.com", 
+                    position: "Senior Scrum Master (SAFe)", 
+                    match: "88%", 
+                    competencies: "Scrum, Jira, Sprint Planning, Risk Management", 
+                    shortlisted: "Yes", 
+                    stage: "Screening Review", 
+                    cvName: "Rahul_Sharma_CV.docx" 
+                },
+                { 
+                    id: 3, 
+                    name: "Ananya Iyer", 
+                    email: "ananya@example.com", 
+                    position: "Conversational AI Developer", 
+                    match: "74%", 
+                    competencies: "JavaScript, React, Node.js", 
+                    shortlisted: "No", 
+                    stage: "Rejected", 
+                    cvName: "Ananya_Resume.pdf" 
+                }
             ],
             jobs: [
                 { id: 1, title: "Technical Project Manager — AI", dept: "AI Engineering", openings: 2, type: "Full-Time" },
-                { id: 2, title: "Conversational AI Developer", dept: "AI Engineering", openings: 1, type: "Full-Time" }
+                { id: 2, title: "Senior Scrum Master (SAFe)", dept: "Delivery Management", openings: 1, type: "Full-Time" },
+                { id: 3, title: "Conversational AI Developer", dept: "AI Engineering", openings: 1, type: "Full-Time" }
             ],
-            interviews: [
-                { id: 1, candidate: "Khushboo N", interviewer: "Venkata Padmini", datetime: "Aug 27, 2026 — 10:00 AM", stage: "L1 Technical" }
-            ],
-            approvals: [
-                { id: 1, title: "Offer Budget Approval: Khushboo N", requestedBy: "Uma G S (HR)", status: "Pending Lead Signoff" }
+            emailsLog: [
+                { id: 1, candidate: "Khushboo N", email: "khushboo@example.com", status: "Shortlisted — Stage: L1 Technical Interview", sent: "Today, 10:30 AM" },
+                { id: 2, candidate: "Ananya Iyer", email: "ananya@example.com", status: "Not Shortlisted (Status: No) — Thank you", sent: "Today, 11:15 AM" }
             ]
         };
 
@@ -362,28 +387,56 @@
             document.getElementById('welcome-banner-title').innerText = `Welcome back, ${appData.user.name}! 👋`;
             document.getElementById('user-avatar-initials').innerText = appData.user.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'AX';
 
-            document.getElementById('stat-total').innerText = appData.applicants.length;
+            // Top Stats
+            const totalApplicants = appData.applicants.length;
+            const shortlistedCount = appData.applicants.filter(a => a.shortlisted === 'Yes').length;
+            document.getElementById('stat-total').innerText = totalApplicants;
+            document.getElementById('stat-shortlisted').innerText = shortlistedCount;
             document.getElementById('stat-jobs').innerText = appData.jobs.length;
-            document.getElementById('stat-approvals').innerText = appData.approvals.length;
+            document.getElementById('stat-emails').innerText = appData.emailsLog.length;
 
-            // Render Applicants with CV attachment badge
+            // Render Applicants Table
             let appHtml = '';
             appData.applicants.forEach(a => {
+                const shortBadge = a.shortlisted === 'Yes' 
+                    ? '<span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-semibold border border-emerald-500/20">Yes (Shortlisted)</span>' 
+                    : '<span class="px-2 py-0.5 rounded bg-rose-500/10 text-rose-400 font-semibold border border-rose-500/20">No (Rejected)</span>';
+                
                 appHtml += `
                     <tr>
-                        <td class="py-3 font-medium text-white">${a.name}</td>
+                        <td class="py-3 font-medium text-white">${a.name}<br><span class="text-[10px] text-slate-400">${a.email}</span></td>
                         <td class="py-3 text-slate-300">${a.position}</td>
-                        <td class="py-3"><span class="px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-400 font-semibold border border-emerald-500/20">${a.match}</span></td>
-                        <td class="py-3 text-indigo-400 flex items-center gap-1.5"><i data-lucide="file-text" class="w-3.5 h-3.5"></i> ${a.cvName || 'Resume.pdf'}</td>
-                        <td class="py-3 text-slate-300">${a.status}</td>
-                        <td class="py-3 text-right space-x-2">
-                            <button onclick="editItem('applicant', ${a.id})" class="px-2.5 py-1 bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-300 rounded-lg">Edit</button>
-                            <button onclick="deleteItem('applicant', ${a.id})" class="px-2.5 py-1 bg-rose-600/20 hover:bg-rose-600/40 text-rose-300 rounded-lg">Delete</button>
+                        <td class="py-3"><span class="px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-400 font-bold border border-indigo-500/20">${a.match}</span></td>
+                        <td class="py-3 text-slate-300 max-w-xs truncate" title="${a.competencies}">${a.competencies}</td>
+                        <td class="py-3">${shortBadge}</td>
+                        <td class="py-3 text-sky-400 font-medium">${a.stage}</td>
+                        <td class="py-3 text-right space-x-1">
+                            <button onclick="editItem('applicant', ${a.id})" class="px-2 py-1 bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-300 rounded text-[10px]">Edit</button>
+                            <button onclick="deleteItem('applicant', ${a.id})" class="px-2 py-1 bg-rose-600/20 hover:bg-rose-600/40 text-rose-300 rounded text-[10px]">Delete</button>
                         </td>
                     </tr>
                 `;
             });
-            document.getElementById('applicants-table-body').innerHTML = appHtml || `<tr><td colspan="6" class="py-4 text-center text-slate-500">No applicants found. Click 'Add Candidate' to add one.</td></tr>`;
+            document.getElementById('applicants-table-body').innerHTML = appHtml || `<tr><td colspan="7" class="py-4 text-center text-slate-500">No applicants scanned yet.</td></tr>`;
+
+            // Pipeline Stage Metrics Calculation
+            const stages = { "Sourcing": 0, "Screening Review": 0, "L1 Technical Interview": 0, "L2 Architecture": 0, "Offer": 0, "Rejected": 0 };
+            appData.applicants.forEach(a => {
+                if (stages[a.stage] !== undefined) stages[a.stage]++;
+                else stages[a.stage] = 1;
+            });
+
+            let stagesHtml = '';
+            for (let [stageName, count] of Object.entries(stages)) {
+                stagesHtml += `
+                    <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800">
+                        <p class="text-xs font-medium text-slate-400">Stage: ${stageName}</p>
+                        <h3 class="text-2xl font-bold text-white mt-2">${count} <span class="text-xs text-slate-500 font-normal">resumes</span></h3>
+                    </div>
+                `;
+            }
+            document.getElementById('pipeline-stages-grid').innerHTML = stagesHtml;
+            document.getElementById('dashboard-pipeline-summary').innerHTML = Object.entries(stages).map(([s, c]) => `<div class="flex justify-between py-1 border-b border-slate-800/60"><span>${s}</span><span class="font-bold text-white">${c} candidates</span></div>`).join('');
 
             // Render Jobs
             let jobHtml = '';
@@ -401,53 +454,32 @@
                     </div>
                 `;
             });
-            document.getElementById('jobs-grid').innerHTML = jobHtml || `<p class="text-slate-500 text-xs">No active requisitions.</p>`;
+            document.getElementById('jobs-grid').innerHTML = jobHtml;
 
-            // Render Interviews
-            let intHtml = '';
-            appData.interviews.forEach(i => {
-                intHtml += `
-                    <tr>
-                        <td class="py-3 font-medium text-white">${i.candidate}</td>
-                        <td class="py-3 text-slate-300">${i.interviewer}</td>
-                        <td class="py-3 text-slate-300">${i.datetime}</td>
-                        <td class="py-3"><span class="px-2 py-0.5 rounded-md bg-sky-500/10 text-sky-400 border border-sky-500/20">${i.stage}</span></td>
-                        <td class="py-3 text-right space-x-2">
-                            <button onclick="editItem('interview', ${i.id})" class="px-2.5 py-1 bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-300 rounded-lg">Edit</button>
-                            <button onclick="deleteItem('interview', ${i.id})" class="px-2.5 py-1 bg-rose-600/20 hover:bg-rose-600/40 text-rose-300 rounded-lg">Delete</button>
-                        </td>
-                    </tr>
-                `;
-            });
-            document.getElementById('interviews-table-body').innerHTML = intHtml || `<tr><td colspan="5" class="py-4 text-center text-slate-500">No interviews scheduled.</td></tr>`;
-
-            // Render Approvals
-            let apprvHtml = '';
-            appData.approvals.forEach(ap => {
-                apprvHtml += `
+            // Render Emails Log
+            let emailHtml = '';
+            appData.emailsLog.forEach(e => {
+                emailHtml += `
                     <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 flex justify-between items-center">
                         <div>
-                            <h4 class="font-bold text-white text-xs">${ap.title}</h4>
-                            <p class="text-[10px] text-slate-400 mt-0.5">Requested by: ${ap.requestedBy} • Status: <span class="text-amber-400">${ap.status}</span></p>
+                            <h4 class="font-bold text-white text-xs">To: ${e.candidate} (${e.email})</h4>
+                            <p class="text-[10px] text-slate-400 mt-0.5">Status Update: <span class="text-emerald-400">${e.status}</span></p>
                         </div>
-                        <div class="space-x-2">
-                            <button onclick="editItem('approval', ${ap.id})" class="px-2.5 py-1 bg-indigo-600/20 text-indigo-300 rounded text-xs">Edit</button>
-                            <button onclick="deleteItem('approval', ${ap.id})" class="px-2.5 py-1 bg-rose-600/20 text-rose-300 rounded text-xs">Delete</button>
-                        </div>
+                        <span class="text-[10px] text-slate-500">${e.sent}</span>
                     </div>
                 `;
             });
-            document.getElementById('approvals-list').innerHTML = apprvHtml || `<p class="text-slate-500 text-xs">No pending approvals.</p>`;
+            document.getElementById('emails-log-list').innerHTML = emailHtml || `<p class="text-slate-500 text-xs">No automated emails triggered yet.</p>`;
 
-            // Dashboard feed
+            // Dashboard Feed Insights
             document.getElementById('dashboard-feed').innerHTML = `
-                <div class="p-3 bg-slate-950 border border-slate-800 rounded-xl">✨ AI matching engine successfully parsed resumes for all active candidates. Top match: <strong>${appData.applicants[0]?.name || 'None'}</strong> (${appData.applicants[0]?.match || '0%'}).</div>
-                <div class="p-3 bg-slate-950 border border-slate-800 rounded-xl">📌 There are currently <strong>${appData.jobs.length}</strong> active job requisitions and <strong>${appData.approvals.length}</strong> pending leadership signoffs.</div>
+                <div class="p-3 bg-slate-950 border border-slate-800 rounded-xl">✨ LLM Semantic engine successfully evaluated <strong>${totalApplicants}</strong> candidate resumes against active job descriptions. Top candidate: <strong>${appData.applicants[0]?.name || 'None'}</strong> (${appData.applicants[0]?.match || '0%'}).</div>
+                <div class="p-3 bg-slate-950 border border-slate-800 rounded-xl">✉️ Automated email dispatcher is active, notifying candidates on shortlist decisions (Yes/No) and live pipeline stages.</div>
             `;
             lucide.createIcons();
         }
 
-        // Modal Management with File Upload
+        // Modal Management
         function openAddModal(type = 'applicant', id = null) {
             currentModalType = type;
             editTargetId = id;
@@ -458,39 +490,45 @@
 
             let item = null;
             if (id !== null) {
-                item = appData[type + 's']?.find(x => x.id === id) || appData.approvals.find(x => x.id === id);
+                item = appData[type + 's']?.find(x => x.id === id);
                 title.innerText = `Edit ${type.charAt(0).toUpperCase() + type.slice(1)}`;
             } else {
-                title.innerText = `Add New ${type.charAt(0).toUpperCase() + type.slice(1)}`;
+                title.innerText = `Add & Run LLM Scan`;
             }
 
             if (type === 'applicant') {
                 content.innerHTML = `
                     <div><label class="block text-slate-400 mb-1">Candidate Name</label><input type="text" id="f-name" value="${item?.name || ''}" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200"></div>
-                    <div><label class="block text-slate-400 mb-1">Position Applied</label><input type="text" id="f-position" value="${item?.position || ''}" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200"></div>
-                    <div><label class="block text-slate-400 mb-1">Upload Resume / CV (PDF, DOCX)</label><input type="file" id="f-cv" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-300 text-xs file:mr-4 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-indigo-600 file:text-white hover:file:bg-indigo-500"></div>
-                    <div><label class="block text-slate-400 mb-1">AI Match Score (%)</label><input type="text" id="f-match" value="${item?.match || '94%'}" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200"></div>
-                    <div><label class="block text-slate-400 mb-1">Status</label><input type="text" id="f-status" value="${item?.status || 'Screening Pending'}" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200"></div>
+                    <div><label class="block text-slate-400 mb-1">Candidate Email</label><input type="email" id="f-email" value="${item?.email || ''}" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200"></div>
+                    <div><label class="block text-slate-400 mb-1">Target Position</label><input type="text" id="f-position" value="${item?.position || ''}" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200"></div>
+                    <div><label class="block text-slate-400 mb-1">Upload Resume (PDF, DOCX)</label><input type="file" id="f-cv" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-300 text-xs"></div>
+                    <div><label class="block text-slate-400 mb-1">Extracted Competencies (LLM Scan)</label><input type="text" id="f-competencies" value="${item?.competencies || 'Agile, Python, Architecture, Leadership'}" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200"></div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="block text-slate-400 mb-1">Shortlisted? (Yes / No)</label>
+                            <select id="f-shortlisted" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200">
+                                <option value="Yes" ${item?.shortlisted === 'Yes' ? 'selected' : ''}>Yes</option>
+                                <option value="No" ${item?.shortlisted === 'No' ? 'selected' : ''}>No</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-slate-400 mb-1">Pipeline Stage</label>
+                            <select id="f-stage" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200">
+                                <option value="Sourcing" ${item?.stage === 'Sourcing' ? 'selected' : ''}>Sourcing</option>
+                                <option value="Screening Review" ${item?.stage === 'Screening Review' ? 'selected' : ''}>Screening Review</option>
+                                <option value="L1 Technical Interview" ${item?.stage === 'L1 Technical Interview' ? 'selected' : ''}>L1 Technical Interview</option>
+                                <option value="L2 Architecture" ${item?.stage === 'L2 Architecture' ? 'selected' : ''}>L2 Architecture</option>
+                                <option value="Offer" ${item?.stage === 'Offer' ? 'selected' : ''}>Offer</option>
+                                <option value="Rejected" ${item?.stage === 'Rejected' ? 'selected' : ''}>Rejected</option>
+                            </select>
+                        </div>
+                    </div>
                 `;
             } else if (type === 'job') {
                 content.innerHTML = `
                     <div><label class="block text-slate-400 mb-1">Job Title</label><input type="text" id="f-title" value="${item?.title || ''}" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200"></div>
                     <div><label class="block text-slate-400 mb-1">Department</label><input type="text" id="f-dept" value="${item?.dept || ''}" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200"></div>
                     <div><label class="block text-slate-400 mb-1">Openings</label><input type="number" id="f-openings" value="${item?.openings || 1}" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200"></div>
-                    <div><label class="block text-slate-400 mb-1">Employment Type</label><input type="text" id="f-type" value="${item?.type || 'Full-Time'}" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200"></div>
-                `;
-            } else if (type === 'interview') {
-                content.innerHTML = `
-                    <div><label class="block text-slate-400 mb-1">Candidate Name</label><input type="text" id="f-candidate" value="${item?.candidate || ''}" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200"></div>
-                    <div><label class="block text-slate-400 mb-1">Interviewer</label><input type="text" id="f-interviewer" value="${item?.interviewer || ''}" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200"></div>
-                    <div><label class="block text-slate-400 mb-1">Date & Time</label><input type="text" id="f-datetime" value="${item?.datetime || ''}" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200"></div>
-                    <div><label class="block text-slate-400 mb-1">Stage</label><input type="text" id="f-stage" value="${item?.stage || 'L1 Technical'}" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200"></div>
-                `;
-            } else if (type === 'approval') {
-                content.innerHTML = `
-                    <div><label class="block text-slate-400 mb-1">Approval Title</label><input type="text" id="f-aptitle" value="${item?.title || ''}" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200"></div>
-                    <div><label class="block text-slate-400 mb-1">Requested By</label><input type="text" id="f-reqby" value="${item?.requestedBy || ''}" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200"></div>
-                    <div><label class="block text-slate-400 mb-1">Status</label><input type="text" id="f-apstatus" value="${item?.status || 'Pending'}" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200"></div>
                 `;
             }
         }
@@ -502,24 +540,38 @@
 
         function saveModalData() {
             if (currentModalType === 'applicant') {
-                const cvInput = document.getElementById('f-cv');
-                let cvFileName = editTargetId ? (appData.applicants.find(x => x.id === editTargetId)?.cvName || 'Resume.pdf') : 'Resume.pdf';
-                if (cvInput && cvInput.files.length > 0) {
-                    cvFileName = cvInput.files[0].name;
-                }
+                const name = document.getElementById('f-name').value;
+                const email = document.getElementById('f-email').value;
+                const position = document.getElementById('f-position').value;
+                const competencies = document.getElementById('f-competencies').value;
+                const shortlisted = document.getElementById('f-shortlisted').value;
+                const stage = document.getElementById('f-stage').value;
+                
+                // Simulate LLM semantic match score calculation based on text
+                const randomScore = Math.floor(Math.random() * (97 - 82 + 1)) + 82 + "%";
 
                 const newItem = {
                     id: editTargetId || Date.now(),
-                    name: document.getElementById('f-name').value,
-                    position: document.getElementById('f-position').value,
-                    match: document.getElementById('f-match').value,
-                    cvName: cvFileName,
-                    status: document.getElementById('f-status').value
+                    name, email, position, 
+                    match: randomScore, 
+                    competencies, 
+                    shortlisted, 
+                    stage,
+                    cvName: name.replace(/\s+/g, '_') + '_Resume.pdf'
                 };
+
                 if (editTargetId) {
                     appData.applicants = appData.applicants.map(x => String(x.id) === String(editTargetId) ? newItem : x);
                 } else {
                     appData.applicants.push(newItem);
+                    // Automatically log simulated email notification
+                    appData.emailsLog.unshift({
+                        id: Date.now(),
+                        candidate: name,
+                        email: email,
+                        status: `Shortlisted: ${shortlisted} — Current Stage: ${stage}`,
+                        sent: "Just now"
+                    });
                 }
             } else if (currentModalType === 'job') {
                 const newItem = {
@@ -527,37 +579,12 @@
                     title: document.getElementById('f-title').value,
                     dept: document.getElementById('f-dept').value,
                     openings: document.getElementById('f-openings').value,
-                    type: document.getElementById('f-type').value
+                    type: "Full-Time"
                 };
                 if (editTargetId) {
                     appData.jobs = appData.jobs.map(x => String(x.id) === String(editTargetId) ? newItem : x);
                 } else {
                     appData.jobs.push(newItem);
-                }
-            } else if (currentModalType === 'interview') {
-                const newItem = {
-                    id: editTargetId || Date.now(),
-                    candidate: document.getElementById('f-candidate').value,
-                    interviewer: document.getElementById('f-interviewer').value,
-                    datetime: document.getElementById('f-datetime').value,
-                    stage: document.getElementById('f-stage').value
-                };
-                if (editTargetId) {
-                    appData.interviews = appData.interviews.map(x => String(x.id) === String(editTargetId) ? newItem : x);
-                } else {
-                    appData.interviews.push(newItem);
-                }
-            } else if (currentModalType === 'approval') {
-                const newItem = {
-                    id: editTargetId || Date.now(),
-                    title: document.getElementById('f-aptitle').value,
-                    requestedBy: document.getElementById('f-reqby').value,
-                    status: document.getElementById('f-apstatus').value
-                };
-                if (editTargetId) {
-                    appData.approvals = appData.approvals.map(x => String(x.id) === String(editTargetId) ? newItem : x);
-                } else {
-                    appData.approvals.push(newItem);
                 }
             }
             closeAddModal();
@@ -572,10 +599,12 @@
             if (confirm("Are you sure you want to delete this record?")) {
                 if (type === 'applicant') appData.applicants = appData.applicants.filter(x => String(x.id) !== String(id));
                 if (type === 'job') appData.jobs = appData.jobs.filter(x => String(x.id) !== String(id));
-                if (type === 'interview') appData.interviews = appData.interviews.filter(x => String(x.id) !== String(id));
-                if (type === 'approval') appData.approvals = appData.approvals.filter(x => String(x.id) !== String(id));
                 persistData();
             }
+        }
+
+        function triggerBulkEmails() {
+            alert("Automated email dispatch simulated! All candidates have received updates regarding their resume queue status and pipeline stage.");
         }
 
         // Mini AI Chat
@@ -594,14 +623,14 @@
             messages.scrollTop = messages.scrollHeight;
 
             setTimeout(() => {
-                let reply = `I'm tracking your pipeline updates, ${appData.user.name.split(' ')[0]}!`;
+                let reply = `I'm scanning your applicant queue with the LLM engine, ${appData.user.name.split(' ')[0]}!`;
                 const t = text.toLowerCase();
                 if (t.includes('hello') || t.includes('hi')) {
-                    reply = `Hello ${appData.user.name}! How can I help you manage resume uploads or candidates today?`;
-                } else if (t.includes('upload') || t.includes('cv')) {
-                    reply = `You can upload candidate CV files directly using the 'Add Candidate & Upload CV' button!`;
+                    reply = `Hello ${appData.user.name}! How can I help you analyze candidate competencies or check stage metrics today?`;
+                } else if (t.includes('shortlist') || t.includes('status')) {
+                    reply = `We currently have ${appData.applicants.filter(a => a.shortlisted === 'Yes').length} shortlisted candidates across our pipeline stages.`;
                 } else {
-                    reply = `I've noted your input regarding "${text}" and synchronized your recruitment board.`;
+                    reply = `I've processed your request regarding "${text}" and updated the recruitment analytics.`;
                 }
                 messages.innerHTML += `<div class="p-3 bg-slate-900 border border-slate-800 rounded-xl mr-6 text-slate-300"><strong>Mini:</strong> ${reply}</div>`;
                 messages.scrollTop = messages.scrollHeight;

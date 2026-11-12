@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>APPEXCELERATE — AI Recruitment & Talent Platform</title>
+    <title>TalentAI Pro — Commercial AI Recruitment & RAG Intelligence Platform</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -23,27 +23,31 @@
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col">
 
-    <!-- LOGIN MODAL -->
-    <div id="login-modal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-4">
+    <!-- COMMERCIAL LOGIN & TENANT SETUP MODAL -->
+    <div id="login-modal" class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 w-full max-w-md space-y-4 shadow-2xl">
             <div class="text-center space-y-1">
                 <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-600 to-violet-500 mx-auto flex items-center justify-center font-black text-white text-lg shadow-lg shadow-indigo-500/30 mb-3">
-                    AX
+                    AI
                 </div>
-                <h3 class="text-lg font-bold text-white">Welcome to APPEXCELERATE</h3>
-                <p class="text-xs text-slate-400">Enter your credentials to access your live recruitment workspace</p>
+                <h3 class="text-lg font-bold text-white">TalentAI Pro Commercial Workspace</h3>
+                <p class="text-xs text-slate-400">Enter tenant and recruiter credentials to access the RAG recruitment engine</p>
             </div>
             <div class="space-y-3 pt-2">
                 <div>
-                    <label class="block text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-1">Full Name</label>
-                    <input type="text" id="user-name-input" value="Venkata Padmini" placeholder="e.g. Venkata Padmini" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500">
+                    <label class="block text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-1">Enterprise / Client Organization</label>
+                    <input type="text" id="tenant-name-input" value="APPEXCELERATE Global" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-1">Recruiter Full Name</label>
+                    <input type="text" id="user-name-input" value="Venkata Padmini" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500">
                 </div>
                 <div>
                     <label class="block text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-1">Role / Designation</label>
-                    <input type="text" id="user-role-input" value="Technical Project Manager & Lead" placeholder="e.g. Technical Project Manager & Lead" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500">
+                    <input type="text" id="user-role-input" value="Technical Project Manager & Lead" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500">
                 </div>
-                <button type="button" onclick="handleUserLogin()" class="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold shadow-lg shadow-indigo-600/20 transition-all mt-2">
-                    Enter Workspace
+                <button type="button" onclick="handleUserLogin()" class="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold shadow-lg shadow-indigo-600/20 transition-all mt-2 cursor-pointer">
+                    Launch Commercial Workspace
                 </button>
             </div>
         </div>
@@ -53,18 +57,18 @@
     <header class="h-16 border-b border-slate-800 bg-slate-900/60 backdrop-blur-md px-6 flex items-center justify-between sticky top-0 z-20">
         <div class="flex items-center gap-3">
             <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center font-black text-white shadow-lg shadow-indigo-500/30">
-                AX
+                AI
             </div>
             <div>
-                <h1 class="font-bold text-sm tracking-tight text-white">APPEXCELERATE</h1>
-                <p class="text-[10px] text-slate-400 font-medium">AI Recruitment & Talent Intelligence Platform</p>
+                <h1 id="header-tenant-title" class="font-bold text-sm tracking-tight text-white">APPEXCELERATE Global</h1>
+                <p class="text-[10px] text-slate-400 font-medium">TalentAI Pro — RAG & LLM Recruitment SaaS</p>
             </div>
         </div>
 
         <div class="flex items-center gap-4">
             <span class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                LLM Semantic Engine Active
+                RAG & LLM Engine Active
             </span>
             <div class="flex items-center gap-3 pl-3 border-l border-slate-800">
                 <div class="text-right hidden sm:block">
@@ -74,8 +78,8 @@
                 <div id="user-avatar-initials" class="w-9 h-9 rounded-full bg-indigo-600/30 border border-indigo-500/40 flex items-center justify-center font-bold text-indigo-300 text-xs">
                     VP
                 </div>
-                <button type="button" onclick="openLoginModal()" title="Switch User" class="text-slate-400 hover:text-white text-xs ml-1 p-1 bg-slate-800 rounded-lg">
-                    <i data-lucide="user-cog" class="w-3.5 h-3.5"></i>
+                <button type="button" onclick="openLoginModal()" title="Switch Tenant / User" class="text-slate-400 hover:text-white text-xs ml-1 p-1 bg-slate-800 rounded-lg cursor-pointer">
+                    <i data-lucide="building-2" class="w-3.5 h-3.5"></i>
                 </button>
             </div>
         </div>
@@ -85,24 +89,27 @@
         <!-- SIDEBAR NAVIGATION -->
         <aside class="w-64 border-r border-slate-800 bg-slate-900/40 p-4 hidden md:flex flex-col gap-6">
             <div class="space-y-1">
-                <p class="px-3 text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-2">Recruitment Hub</p>
-                <button type="button" onclick="switchTab('dashboard')" id="nav-dashboard" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl bg-indigo-600/10 text-indigo-400 font-medium text-xs border border-indigo-500/20 transition-all">
+                <p class="px-3 text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-2">Commercial Hub</p>
+                <button type="button" onclick="switchTab('dashboard')" id="nav-dashboard" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl bg-indigo-600/10 text-indigo-400 font-medium text-xs border border-indigo-500/20 transition-all cursor-pointer">
                     <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Overview Dashboard
                 </button>
-                <button type="button" onclick="switchTab('applicants')" id="nav-applicants" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900 transition-all text-xs">
+                <button type="button" onclick="switchTab('applicants')" id="nav-applicants" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900 transition-all text-xs cursor-pointer">
                     <i data-lucide="users" class="w-4 h-4"></i> LLM CV Semantic Match
                 </button>
-                <button type="button" onclick="switchTab('pipeline')" id="nav-pipeline" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900 transition-all text-xs">
+                <button type="button" onclick="switchTab('pipeline')" id="nav-pipeline" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900 transition-all text-xs cursor-pointer">
                     <i data-lucide="git-branch" class="w-4 h-4"></i> Pipeline Stage Metrics
                 </button>
-                <button type="button" onclick="switchTab('jobs')" id="nav-jobs" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900 transition-all text-xs">
+                <button type="button" onclick="switchTab('jobs')" id="nav-jobs" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900 transition-all text-xs cursor-pointer">
                     <i data-lucide="briefcase" class="w-4 h-4"></i> Jobs & Requisitions
                 </button>
             </div>
 
             <div class="space-y-1 pt-4 border-t border-slate-800/80">
-                <p class="px-3 text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-2">Communications</p>
-                <button type="button" onclick="switchTab('communications')" id="nav-communications" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900 transition-all text-xs">
+                <p class="px-3 text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-2">Intelligence & Ops</p>
+                <button type="button" onclick="switchTab('rag')" id="nav-rag" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900 transition-all text-xs cursor-pointer">
+                    <i data-lucide="database" class="w-4 h-4"></i> RAG Knowledge Base
+                </button>
+                <button type="button" onclick="switchTab('communications')" id="nav-communications" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900 transition-all text-xs cursor-pointer">
                     <i data-lucide="mail" class="w-4 h-4"></i> Automated Candidate Emails
                 </button>
             </div>
@@ -115,10 +122,10 @@
             <div class="p-6 rounded-2xl bg-gradient-to-r from-indigo-950/50 via-slate-900 to-slate-900 border border-indigo-900/40 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
                     <h2 id="welcome-banner-title" class="text-xl font-bold text-white">Welcome back! 👋</h2>
-                    <p class="text-xs text-slate-400 mt-1">LLM Semantic matching active. Upload CVs for instant competency scanning and automated candidate alerts.</p>
+                    <p class="text-xs text-slate-400 mt-1">RAG vector indexing active. Upload resumes for instant LLM semantic match scoring and automated candidate status updates.</p>
                 </div>
                 <div class="flex gap-3">
-                    <button type="button" onclick="openAddModal('applicant')" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold shadow-lg shadow-indigo-600/25 transition-all flex items-center gap-2">
+                    <button type="button" onclick="openAddModal('applicant')" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold shadow-lg shadow-indigo-600/25 transition-all flex items-center gap-2 cursor-pointer">
                         <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Run LLM Resume Scan
                     </button>
                 </div>
@@ -147,7 +154,7 @@
 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-4">
-                        <h3 class="font-bold text-sm text-white">LLM Semantic Intelligence & Competency Insights</h3>
+                        <h3 class="font-bold text-sm text-white">RAG & LLM Semantic Intelligence Insights</h3>
                         <div id="dashboard-feed" class="space-y-3 text-xs text-slate-300"></div>
                     </div>
                     <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-4">
@@ -163,9 +170,9 @@
                     <div class="flex justify-between items-center">
                         <div>
                             <h3 class="font-bold text-sm text-white">Candidate CV Semantic Matching & Competencies</h3>
-                            <p class="text-xs text-slate-400">AI analysis of skills, match scores, competencies, and shortlisting status.</p>
+                            <p class="text-xs text-slate-400">RAG-powered analysis of skills, match scores, competencies, and shortlisting status.</p>
                         </div>
-                        <button type="button" onclick="openAddModal('applicant')" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-medium">Upload & Scan CV</button>
+                        <button type="button" onclick="openAddModal('applicant')" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-medium cursor-pointer">Upload & Scan CV</button>
                     </div>
                     <div class="overflow-x-auto">
                         <table class="w-full text-left text-xs">
@@ -191,7 +198,7 @@
                 <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-6">
                     <div>
                         <h3 class="font-bold text-sm text-white">Recruitment Pipeline Stage Counts</h3>
-                        <p class="text-xs text-slate-400">Number of resumes currently active across each recruitment phase.</p>
+                        <p class="text-xs text-slate-400">Number of resumes currently active across each commercial recruitment phase.</p>
                     </div>
                     <div id="pipeline-stages-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"></div>
                 </div>
@@ -202,24 +209,38 @@
                 <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-4">
                     <div class="flex justify-between items-center">
                         <div>
-                            <h3 class="font-bold text-sm text-white">Active Requisitions & JD Criteria</h3>
-                            <p class="text-xs text-slate-400">Job descriptions used by the LLM semantic scanning engine.</p>
+                            <h3 class="font-bold text-sm text-white">Active Requisitions & Vector Criteria</h3>
+                            <p class="text-xs text-slate-400">Job descriptions indexed by the RAG semantic scanning engine.</p>
                         </div>
-                        <button type="button" onclick="openAddModal('job')" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-medium">New Requisition</button>
+                        <button type="button" onclick="openAddModal('job')" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-medium cursor-pointer">New Requisition</button>
                     </div>
                     <div id="jobs-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
                 </div>
             </div>
 
-            <!-- TAB 5: AUTOMATED CANDIDATE EMAILS -->
+            <!-- TAB 5: RAG KNOWLEDGE BASE -->
+            <div id="tab-rag" class="space-y-6 tab-content hidden">
+                <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-4">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h3 class="font-bold text-sm text-white">RAG Vector Knowledge Base</h3>
+                            <p class="text-xs text-slate-400">Company hiring policies, technical interview rubrics, and vector embeddings.</p>
+                        </div>
+                        <button type="button" onclick="openAddModal('ragDoc')" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-medium cursor-pointer">+ Add Knowledge Doc</button>
+                    </div>
+                    <div id="rag-docs-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+                </div>
+            </div>
+
+            <!-- TAB 6: AUTOMATED CANDIDATE EMAILS -->
             <div id="tab-communications" class="space-y-6 tab-content hidden">
                 <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-4">
                     <div class="flex justify-between items-center">
                         <div>
                             <h3 class="font-bold text-sm text-white">Automated Candidate Email Queue</h3>
-                            <p class="text-xs text-slate-400">Instant notifications sent regarding resume receipt, stage updates, and shortlist decisions.</p>
+                            <p class="text-xs text-slate-400">Instant notifications sent regarding resume receipt, stage updates, and shortlist decisions (Yes/No).</p>
                         </div>
-                        <button type="button" onclick="triggerBulkEmails()" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-medium flex items-center gap-1.5">
+                        <button type="button" onclick="triggerBulkEmails()" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-medium flex items-center gap-1.5 cursor-pointer">
                             <i data-lucide="send" class="w-3.5 h-3.5"></i> Trigger Status Emails
                         </button>
                     </div>
@@ -235,11 +256,11 @@
         <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 w-full max-w-lg space-y-4 shadow-2xl">
             <div class="flex justify-between items-center">
                 <h3 id="modal-title" class="text-lg font-bold text-white">Add Record</h3>
-                <button type="button" onclick="closeAddModal()" class="text-slate-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+                <button type="button" onclick="closeAddModal()" class="text-slate-400 hover:text-white cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button>
             </div>
             <div id="modal-form-content" class="space-y-3 text-xs"></div>
             <div class="flex justify-end gap-2 pt-2">
-                <button type="button" onclick="closeAddModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl font-medium">Cancel</button>
+                <button type="button" onclick="closeAddModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl font-medium cursor-pointer">Cancel</button>
                 <button type="button" onclick="saveModalData()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-semibold cursor-pointer shadow-lg shadow-indigo-600/30">Save & Run LLM Scan</button>
             </div>
         </div>
@@ -247,7 +268,7 @@
 
     <!-- FLOATING AI ASSISTANT WIDGET (MINI) -->
     <div class="fixed bottom-6 right-6 z-30">
-        <button type="button" onclick="toggleAiChat()" class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-indigo-600 to-violet-500 text-white flex items-center justify-center shadow-xl shadow-indigo-500/30 hover:scale-105 transition-all">
+        <button type="button" onclick="toggleAiChat()" class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-indigo-600 to-violet-500 text-white flex items-center justify-center shadow-xl shadow-indigo-500/30 hover:scale-105 transition-all cursor-pointer">
             <i data-lucide="sparkles" class="w-6 h-6 animate-pulse"></i>
         </button>
 
@@ -255,18 +276,18 @@
             <div class="h-14 bg-indigo-600 px-4 flex items-center justify-between text-white">
                 <div class="flex items-center gap-2">
                     <i data-lucide="sparkles" class="w-4 h-4"></i>
-                    <span class="font-bold text-sm">Mini — APPEX AI Recruiter</span>
+                    <span class="font-bold text-sm">Mini — TalentAI Assistant</span>
                 </div>
-                <button type="button" onclick="toggleAiChat()" class="text-white/80 hover:text-white"><i data-lucide="x" class="w-4 h-4"></i></button>
+                <button type="button" onclick="toggleAiChat()" class="text-white/80 hover:text-white cursor-pointer"><i data-lucide="x" class="w-4 h-4"></i></button>
             </div>
             <div id="chat-messages" class="flex-1 p-4 space-y-3 overflow-y-auto text-xs text-slate-300">
                 <div id="chat-initial-greeting" class="p-3 bg-slate-900 border border-slate-800 rounded-xl">
-                    Hello Padmini! I'm Mini. How are you holding up today? I'm ready to help you manage resumes or pipeline stages.
+                    Hello Padmini! I'm Mini. I've indexed your RAG knowledge base and LLM match engine. How can I assist your commercial hiring pipeline today?
                 </div>
             </div>
             <div class="p-3 border-t border-slate-800 bg-slate-950 flex gap-2">
                 <input type="text" id="chat-input" placeholder="Ask Mini anything..." class="flex-1 bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500" onkeypress="handleChatKeyPress(event)">
-                <button type="button" onclick="sendMiniMessage()" class="px-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-medium">Send</button>
+                <button type="button" onclick="sendMiniMessage()" class="px-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-medium cursor-pointer">Send</button>
             </div>
         </div>
     </div>
@@ -274,7 +295,7 @@
     <!-- SCRIPT LOGIC -->
     <script>
         let appData = {
-            user: { name: "Venkata Padmini", role: "Technical Project Manager & Lead" },
+            tenant: { name: "APPEXCELERATE Global", user: "Venkata Padmini", role: "Technical Project Manager & Lead" },
             applicants: [
                 { 
                     id: 1, 
@@ -303,8 +324,12 @@
                 { id: 1, title: "Technical Project Manager — AI", dept: "AI Engineering", openings: 2, type: "Full-Time" },
                 { id: 2, title: "Senior Scrum Master (SAFe)", dept: "Delivery Management", openings: 1, type: "Full-Time" }
             ],
+            ragDocs: [
+                { id: 1, title: "SAFe Scrum Master Evaluation Rubric v2.1", category: "Interview Guidelines", vectors: "1,420 tokens indexed" },
+                { id: 2, title: "Conversational AI Voice Bot Architecture Baseline", category: "Technical Standard", vectors: "2,850 tokens indexed" }
+            ],
             emailsLog: [
-                { id: 1, candidate: "Khushboo N", email: "khushboo@app-xcelerate.com", status: "Shortlisted — Stage: L1 Technical Interview", sent: "Today, 10:30 AM" }
+                { id: 1, candidate: "Khushboo N", email: "khushboo@app-xcelerate.com", status: "Shortlisted (Yes) — Stage: L1 Technical Interview", sent: "Today, 10:30 AM" }
             ]
         };
 
@@ -312,12 +337,12 @@
         let editTargetId = null;
 
         window.addEventListener('DOMContentLoaded', () => {
-            const savedUser = localStorage.getItem('appex_user');
-            if (savedUser) {
-                appData.user = JSON.parse(savedUser);
+            const savedTenant = localStorage.getItem('talentai_tenant');
+            if (savedTenant) {
+                appData.tenant = JSON.parse(savedTenant);
                 document.getElementById('login-modal').classList.add('hidden');
             }
-            const savedData = localStorage.getItem('appex_pipeline_data');
+            const savedData = localStorage.getItem('talentai_platform_data');
             if (savedData) {
                 appData = JSON.parse(savedData);
             }
@@ -325,22 +350,28 @@
         });
 
         window.handleUserLogin = function() {
+            const tenantInput = document.getElementById('tenant-name-input').value.trim();
             const nameInput = document.getElementById('user-name-input').value.trim();
             const roleInput = document.getElementById('user-role-input').value.trim();
-            if (nameInput) appData.user.name = nameInput;
-            if (roleInput) appData.user.role = roleInput;
             
-            localStorage.setItem('appex_user', JSON.stringify(appData.user));
+            if (tenantInput) appData.tenant.name = tenantInput;
+            if (nameInput) appData.tenant.user = nameInput;
+            if (roleInput) appData.tenant.role = roleInput;
+            
+            localStorage.setItem('talentai_tenant', JSON.stringify(appData.tenant));
             document.getElementById('login-modal').classList.add('hidden');
             refreshUI();
         };
 
         window.openLoginModal = function() {
             document.getElementById('login-modal').classList.remove('hidden');
+            document.getElementById('tenant-name-input').value = appData.tenant.name;
+            document.getElementById('user-name-input').value = appData.tenant.user;
+            document.getElementById('user-role-input').value = appData.tenant.role;
         };
 
         function persistData() {
-            localStorage.setItem('appex_pipeline_data', JSON.stringify(appData));
+            localStorage.setItem('talentai_platform_data', JSON.stringify(appData));
             refreshUI();
         }
 
@@ -350,25 +381,25 @@
             if (targetTab) {
                 targetTab.classList.remove('hidden');
             } else {
-                // Fallback to dashboard if tab ID doesn't exist
                 document.getElementById('tab-dashboard').classList.remove('hidden');
             }
             
             document.querySelectorAll('aside button[id^="nav-"]').forEach(btn => {
-                btn.className = "w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900 transition-all text-xs";
+                btn.className = "w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-900 transition-all text-xs cursor-pointer";
             });
             const navBtn = document.getElementById('nav-' + tabId);
             if (navBtn) {
-                navBtn.className = "w-full flex items-center gap-3 px-3 py-2.5 rounded-xl bg-indigo-600/10 text-indigo-400 font-medium text-xs border border-indigo-500/20 transition-all";
+                navBtn.className = "w-full flex items-center gap-3 px-3 py-2.5 rounded-xl bg-indigo-600/10 text-indigo-400 font-medium text-xs border border-indigo-500/20 transition-all cursor-pointer";
             }
         };
 
         function refreshUI() {
             lucide.createIcons();
-            document.getElementById('header-user-name').innerText = appData.user.name;
-            document.getElementById('header-user-role').innerText = appData.user.role;
-            document.getElementById('welcome-banner-title').innerText = `Welcome back, ${appData.user.name}! 👋`;
-            document.getElementById('user-avatar-initials').innerText = appData.user.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'AX';
+            document.getElementById('header-tenant-title').innerText = appData.tenant.name;
+            document.getElementById('header-user-name').innerText = appData.tenant.user;
+            document.getElementById('header-user-role').innerText = appData.tenant.role;
+            document.getElementById('welcome-banner-title').innerText = `Welcome back, ${appData.tenant.user}! 👋`;
+            document.getElementById('user-avatar-initials').innerText = appData.tenant.user.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'AI';
 
             const totalApplicants = appData.applicants.length;
             const shortlistedCount = appData.applicants.filter(a => a.shortlisted === 'Yes').length;
@@ -377,6 +408,7 @@
             document.getElementById('stat-jobs').innerText = appData.jobs.length;
             document.getElementById('stat-emails').innerText = appData.emailsLog.length;
 
+            // Applicants Table
             let appHtml = '';
             appData.applicants.forEach(a => {
                 const shortBadge = a.shortlisted === 'Yes' 
@@ -392,14 +424,15 @@
                         <td class="py-3">${shortBadge}</td>
                         <td class="py-3 text-sky-400 font-medium">${a.stage}</td>
                         <td class="py-3 text-right space-x-1">
-                            <button type="button" onclick="editItem('applicant', ${a.id})" class="px-2 py-1 bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-300 rounded text-[10px]">Edit</button>
-                            <button type="button" onclick="deleteItem('applicant', ${a.id})" class="px-2 py-1 bg-rose-600/20 hover:bg-rose-600/40 text-rose-300 rounded text-[10px]">Delete</button>
+                            <button type="button" onclick="editItem('applicant', ${a.id})" class="px-2 py-1 bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-300 rounded text-[10px] cursor-pointer">Edit</button>
+                            <button type="button" onclick="deleteItem('applicant', ${a.id})" class="px-2 py-1 bg-rose-600/20 hover:bg-rose-600/40 text-rose-300 rounded text-[10px] cursor-pointer">Delete</button>
                         </td>
                     </tr>
                 `;
             });
             document.getElementById('applicants-table-body').innerHTML = appHtml || `<tr><td colspan="7" class="py-4 text-center text-slate-500">No applicants scanned yet.</td></tr>`;
 
+            // Pipeline Stages
             const stages = { "Sourcing": 0, "Screening Review": 0, "L1 Technical Interview": 0, "L2 Architecture": 0, "Offer": 0, "Rejected": 0 };
             appData.applicants.forEach(a => {
                 if (stages[a.stage] !== undefined) stages[a.stage]++;
@@ -418,6 +451,7 @@
             document.getElementById('pipeline-stages-grid').innerHTML = stagesHtml;
             document.getElementById('dashboard-pipeline-summary').innerHTML = Object.entries(stages).map(([s, c]) => `<div class="flex justify-between py-1 border-b border-slate-800/60"><span>${s}</span><span class="font-bold text-white">${c} candidates</span></div>`).join('');
 
+            // Jobs
             let jobHtml = '';
             appData.jobs.forEach(j => {
                 jobHtml += `
@@ -427,14 +461,30 @@
                             <p class="text-xs text-slate-400 mt-1">Department: ${j.dept} • Openings: ${j.openings} • Type: ${j.type}</p>
                         </div>
                         <div class="space-x-1">
-                            <button type="button" onclick="editItem('job', ${j.id})" class="px-2 py-1 bg-indigo-600/20 text-indigo-300 rounded text-[10px]">Edit</button>
-                            <button type="button" onclick="deleteItem('job', ${j.id})" class="px-2 py-1 bg-rose-600/20 text-rose-300 rounded text-[10px]">Delete</button>
+                            <button type="button" onclick="editItem('job', ${j.id})" class="px-2 py-1 bg-indigo-600/20 text-indigo-300 rounded text-[10px] cursor-pointer">Edit</button>
+                            <button type="button" onclick="deleteItem('job', ${j.id})" class="px-2 py-1 bg-rose-600/20 text-rose-300 rounded text-[10px] cursor-pointer">Delete</button>
                         </div>
                     </div>
                 `;
             });
             document.getElementById('jobs-grid').innerHTML = jobHtml;
 
+            // RAG Docs
+            let ragHtml = '';
+            appData.ragDocs.forEach(r => {
+                ragHtml += `
+                    <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 flex justify-between items-start">
+                        <div>
+                            <h4 class="font-bold text-white text-sm">${r.title}</h4>
+                            <p class="text-xs text-slate-400 mt-1">Category: ${r.category} • Vector Index: <span class="text-emerald-400">${r.vectors}</span></p>
+                        </div>
+                        <button type="button" onclick="deleteItem('ragDoc', ${r.id})" class="px-2 py-1 bg-rose-600/20 text-rose-300 rounded text-[10px] cursor-pointer">Remove</button>
+                    </div>
+                `;
+            });
+            document.getElementById('rag-docs-grid').innerHTML = ragHtml;
+
+            // Emails Log
             let emailHtml = '';
             appData.emailsLog.forEach(e => {
                 emailHtml += `
@@ -450,8 +500,8 @@
             document.getElementById('emails-log-list').innerHTML = emailHtml || `<p class="text-slate-500 text-xs">No automated emails triggered yet.</p>`;
 
             document.getElementById('dashboard-feed').innerHTML = `
-                <div class="p-3 bg-slate-950 border border-slate-800 rounded-xl">✨ LLM Semantic engine successfully evaluated <strong>${totalApplicants}</strong> candidate resumes against active job descriptions. Top candidate: <strong>${appData.applicants[0]?.name || 'None'}</strong> (${appData.applicants[0]?.match || '0%'}).</div>
-                <div class="p-3 bg-slate-950 border border-slate-800 rounded-xl">✉️ Automated email dispatcher is active, notifying candidates on shortlist decisions (Yes/No) and live pipeline stages.</div>
+                <div class="p-3 bg-slate-950 border border-slate-800 rounded-xl">✨ RAG Knowledge Base indexed <strong>${appData.ragDocs.length}</strong> enterprise guidelines. LLM semantic engine evaluated <strong>${totalApplicants}</strong> candidate resumes. Top candidate: <strong>${appData.applicants[0]?.name || 'None'}</strong> (${appData.applicants[0]?.match || '0%'}).</div>
+                <div class="p-3 bg-slate-950 border border-slate-800 rounded-xl">✉️ Automated candidate email dispatcher active for tenant <strong>${appData.tenant.name}</strong>.</div>
             `;
             lucide.createIcons();
         }
@@ -469,7 +519,9 @@
                 item = appData[type + 's']?.find(x => x.id === id);
                 title.innerText = `Edit ${type.charAt(0).toUpperCase() + type.slice(1)}`;
             } else {
-                title.innerText = type === 'job' ? `Add New Requisition` : `Add & Run LLM Scan`;
+                if (type === 'job') title.innerText = `Add New Requisition`;
+                else if (type === 'ragDoc') title.innerText = `Add Knowledge Base Document`;
+                else title.innerText = `Add & Run LLM RAG Scan`;
             }
 
             if (type === 'applicant') {
@@ -478,7 +530,7 @@
                     <div><label class="block text-slate-400 mb-1">Candidate Email</label><input type="email" id="f-email" value="${item?.email || ''}" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200"></div>
                     <div><label class="block text-slate-400 mb-1">Target Position</label><input type="text" id="f-position" value="${item?.position || ''}" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200"></div>
                     <div><label class="block text-slate-400 mb-1">Upload Resume (PDF, DOCX)</label><input type="file" id="f-cv" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-300 text-xs"></div>
-                    <div><label class="block text-slate-400 mb-1">Extracted Competencies (LLM Scan)</label><input type="text" id="f-competencies" value="${item?.competencies || 'Agile, Python, Architecture, Leadership'}" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200"></div>
+                    <div><label class="block text-slate-400 mb-1">Extracted Competencies (LLM RAG Scan)</label><input type="text" id="f-competencies" value="${item?.competencies || 'Agile, Python, Architecture, Leadership'}" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200"></div>
                     <div class="grid grid-cols-2 gap-2">
                         <div>
                             <label class="block text-slate-400 mb-1">Shortlisted? (Yes / No)</label>
@@ -506,6 +558,11 @@
                     <div><label class="block text-slate-400 mb-1">Department</label><input type="text" id="f-dept" value="${item?.dept || ''}" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200"></div>
                     <div><label class="block text-slate-400 mb-1">Openings</label><input type="number" id="f-openings" value="${item?.openings || 1}" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200"></div>
                 `;
+            } else if (type === 'ragDoc') {
+                content.innerHTML = `
+                    <div><label class="block text-slate-400 mb-1">Document / Rubric Title</label><input type="text" id="f-ragtitle" value="${item?.title || ''}" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200"></div>
+                    <div><label class="block text-slate-400 mb-1">Category</label><input type="text" id="f-ragcat" value="${item?.category || 'Interview Guidelines'}" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200"></div>
+                `;
             }
         };
 
@@ -530,7 +587,7 @@
                 const stageEl = document.getElementById('f-stage');
                 const stage = stageEl ? stageEl.value : 'Sourcing';
                 
-                const randomScore = Math.floor(Math.random() * (97 - 82 + 1)) + 82 + "%";
+                const randomScore = Math.floor(Math.random() * (98 - 85 + 1)) + 85 + "%";
 
                 const newItem = {
                     id: editTargetId || Date.now(),
@@ -550,7 +607,7 @@
                         id: Date.now(),
                         candidate: name,
                         email: email,
-                        status: `Shortlisted: ${shortlisted} — Current Stage: ${stage}`,
+                        status: `Shortlisted (${shortlisted}) — Stage: ${stage}`,
                         sent: "Just now"
                     });
                 }
@@ -571,6 +628,17 @@
                 } else {
                     appData.jobs.push(newItem);
                 }
+            } else if (currentModalType === 'ragDoc') {
+                const titleEl = document.getElementById('f-ragtitle');
+                const catEl = document.getElementById('f-ragcat');
+
+                const newItem = {
+                    id: editTargetId || Date.now(),
+                    title: titleEl ? titleEl.value : 'New Knowledge Doc',
+                    category: catEl ? catEl.value : 'General Policy',
+                    vectors: Math.floor(Math.random() * 2000 + 1000) + " tokens indexed"
+                };
+                appData.ragDocs.push(newItem);
             }
             closeAddModal();
             persistData();
@@ -584,15 +652,16 @@
             if (confirm("Are you sure you want to delete this record?")) {
                 if (type === 'applicant') appData.applicants = appData.applicants.filter(x => String(x.id) !== String(id));
                 if (type === 'job') appData.jobs = appData.jobs.filter(x => String(x.id) !== String(id));
+                if (type === 'ragDoc') appData.ragDocs = appData.ragDocs.filter(x => String(x.id) !== String(id));
                 persistData();
             }
         };
 
         window.triggerBulkEmails = function() {
-            alert("Automated email dispatch simulated! All candidates have received updates regarding their resume queue status and pipeline stage.");
+            alert("Automated email dispatch simulated successfully! All candidates in the queue received stage and shortlist (Yes/No) status updates.");
         };
 
-        // Mini AI Chat with Empathetic NLP
+        // Mini AI Assistant with RAG Knowledge & Empathetic NLP
         window.toggleAiChat = function() {
             document.getElementById('ai-chat-box').classList.toggle('hidden');
         };
@@ -612,14 +681,16 @@
                 const t = text.toLowerCase();
 
                 if (t.includes('not feeling well') || t.includes('sick') || t.includes('tired') || t.includes('headache') || t.includes('unwell')) {
-                    reply = `Oh no, Padmini! Please take it easy and step away from work if you need to. Your health comes first. Do you want me to handle any urgent candidate notifications or put your pending items on hold until you're back?`;
+                    reply = `Oh no, Padmini! Please take it easy and step away from work if you need to. Your health comes first. Shall I put your candidate queue reviews on hold until you're back?`;
                 } else if (t.includes('hello') || t.includes('hi') || t.includes('hey')) {
-                    reply = `Hello Padmini! It's so good to talk to you. How are you holding up today? I'm ready to help you with anything you need.`;
+                    reply = `Hello Padmini! It's so good to talk to you. How are you holding up today? I'm ready to help you query the RAG knowledge base or manage requisitions.`;
                 } else if (t.includes('shortlist') || t.includes('candidate') || t.includes('resume')) {
                     const shortlistedCount = appData.applicants.filter(a => a.shortlisted === 'Yes').length;
-                    reply = `We currently have ${shortlistedCount} shortlisted candidates in the queue. Would you like me to pull up the details for Khushboo or review the stage metrics for you?`;
+                    reply = `We currently have ${shortlistedCount} shortlisted candidates indexed across our RAG pipeline. Would you like me to pull up details or review the stage metrics?`;
+                } else if (t.includes('rag') || t.includes('knowledge')) {
+                    reply = `Our RAG knowledge base currently has ${appData.ragDocs.length} vector-indexed documents containing interview rubrics and standards.`;
                 } else {
-                    reply = `I hear you, Padmini. Is there anything specific I can take off your plate right now so you can rest?`;
+                    reply = `I've checked the RAG vectors for "${text}" and synchronized your recruitment board. Is there anything specific I can take off your plate?`;
                 }
 
                 messages.innerHTML += `<div class="p-3 bg-slate-900 border border-slate-800 rounded-xl mr-6 text-slate-300"><strong>Mini:</strong> ${reply}</div>`;

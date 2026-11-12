@@ -612,16 +612,45 @@
             document.getElementById('ai-chat-box').classList.toggle('hidden');
         }
 
-        function sendMiniMessage() {
-            const input = document.getElementById('chat-input');
-            const messages = document.getElementById('chat-messages');
-            const text = input.value.trim();
-            if (!text) return;
+// Mini AI Chat with Empathetic NLP & Emotional Intelligence
+function sendMiniMessage() {
+    const input = document.getElementById('chat-input');
+    const messages = document.getElementById('chat-messages');
+    const text = input.value.trim();
+    if (!text) return;
 
-            messages.innerHTML += `<div class="p-3 bg-indigo-950/60 border border-indigo-900/50 rounded-xl ml-6 text-right text-slate-200">${text}</div>`;
-            input.value = '';
-            messages.scrollTop = messages.scrollHeight;
+    // Append User Message
+    messages.innerHTML += `<div class="p-3 bg-indigo-950/60 border border-indigo-900/50 rounded-xl ml-6 text-right text-slate-200">${text}</div>`;
+    input.value = '';
+    messages.scrollTop = messages.scrollHeight;
 
+    // Simulate Empathetic NLP & Human-Like Intelligence
+    setTimeout(() => {
+        let reply = `I'm right here with you.`;
+        const t = text.toLowerCase();
+
+        // Emotional & Health Awareness
+        if (t.includes('not feeling well') || t.includes('sick') || t.includes('tired') || t.includes('headache') || t.includes('unwell')) {
+            reply = `Oh no, Padmini! Please take it easy and step away from work if you need to. Your health comes first. Do you want me to handle any urgent candidate notifications or put your pending approvals on hold until you're back?`;
+        } 
+        // Greetings
+        else if (t.includes('hello') || t.includes('hi') || t.includes('hey')) {
+            reply = `Hello Padmini! It's so good to talk to you. How are you holding up today? I'm ready to help you with anything you need.`;
+        } 
+        // Candidate / Shortlist Queries
+        else if (t.includes('shortlist') || t.includes('candidate') || t.includes('resume')) {
+            const shortlistedCount = appData.applicants.filter(a => a.shortlisted === 'Yes').length;
+            reply = `We currently have ${shortlistedCount} shortlisted candidates in the queue. Would you like me to pull up the details for Khushboo or review the stage metrics for you?`;
+        } 
+        // General fallback with empathy
+        else {
+            reply = `I hear you, Padmini. I've noted that down, but more importantly—is there anything specific I can take off your plate right now so you can rest?`;
+        }
+
+        messages.innerHTML += `<div class="p-3 bg-slate-900 border border-slate-800 rounded-xl mr-6 text-slate-300"><strong>Mini:</strong> ${reply}</div>`;
+        messages.scrollTop = messages.scrollHeight;
+    }, 700);
+}
             setTimeout(() => {
                 let reply = `I'm scanning your applicant queue with the LLM engine, ${appData.user.name.split(' ')[0]}!`;
                 const t = text.toLowerCase();
